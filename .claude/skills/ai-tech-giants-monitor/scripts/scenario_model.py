@@ -28,6 +28,19 @@ for d in dates:
             out['rows'].append(dict(date=str(d),t=round(t,3),sc=sc,tk=tk,px=round(p,2),px_split=round(p/3,2) if tk=='SOXX' else None,
                                     ret_cost=round((p/a-1)*100,1),chg=round((p/p0-1)*100,1),hits=hits))
         out['tot'][f'{d}|{sc}']=dict(mv=round(tot,2),pl=round(tot-COST,2),ret=round((tot/COST-1)*100,1),chg=round((tot/MV0-1)*100,1))
+# 目標進度（§1-11）：起點與「起點後新投入的錢」分開記，進度才追得到是行情賺的還是錢投進來的
+TARGET=30000; GOAL_START=(dt.date(2026,10,28),21907.30)   # 10/28 盤中截圖，使用者定目標那天
+NEW_MONEY=0.0   # 起點後累計新投入（每期照成交截圖加上買進金額、減掉賣出拿回的錢）
+from statistics import NormalDist
+SIG=sum(h[1]*h[4]*h[5] for h in H)/MV0   # 組合波動（市值加權，假設一起漲跌）
+g=dict(target=TARGET,start_date=str(GOAL_START[0]),start_mv=GOAL_START[1],mv=round(MV0,2),new_money=NEW_MONEY,
+       market=round(MV0-GOAL_START[1]-NEW_MONEY,2),pct=round(MV0/TARGET*100,1),gap=round(TARGET-MV0,2),sig=round(SIG,3),rows=[])
+r=1.10**(1/12)-1
+for d in (dt.date(2026,12,31),dt.date(2027,3,31),dt.date(2027,6,30),dt.date(2027,12,31)):
+    t=(d-base).days/365; gr=math.exp(MU_DRIFT*t); n=max(1,round(t*12)); fv=sum((1+r)**(n-k) for k in range(1,n+1))
+    p=1-NormalDist().cdf((math.log(TARGET/MV0)-MU_DRIFT*t)/(SIG*math.sqrt(t)))
+    g['rows'].append(dict(date=str(d),lump=round(TARGET/gr-MV0),monthly=round((TARGET-MV0*gr)/fv),months=n,p=round(p*100)))
+out['goal']=g
 json.dump(out,open('out.json','w'),ensure_ascii=False,indent=1)
 print('cost',round(COST,2),'mv0',round(MV0,2),f'{(MV0/COST-1)*100:.2f}%')
 for k,v in out['tot'].items(): print(k,v)
