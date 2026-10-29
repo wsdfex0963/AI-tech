@@ -31,7 +31,7 @@ rows=''.join(f'<tr><td class="ticker">{t}</td><td class="tabular">{pcts[t]}%</td
 
 import json
 F=json.load(open('out.json',encoding='utf-8'))
-DT=sorted({r['date'] for r in F['rows']}); B0='2026-10-28'; NAME={'2026-11-06':'選舉後','2026-12-31':'年底聖誕行情','2027-03-31':'3 月底','2027-06-30':'6 月底'}; SC=[('樂觀','green'),('中性','accent'),('悲觀','red')]
+DT=sorted({r['date'] for r in F['rows']}); B0='2026-10-29'; NAME={'2026-11-06':'選舉後','2026-12-31':'年底聖誕行情','2027-03-31':'3 月底','2027-06-30':'6 月底'}; SC=[('樂觀','green'),('中性','accent'),('悲觀','red')]
 DAYS={B0:0,**{r['date']:r['t']*365 for r in F['rows']}}; DMAX=max(DAYS.values()); MV0=F['mv0']
 X=lambda d:44+DAYS[d]/DMAX*272; Y=lambda v:180-(v-15000)/20000*164
 svg=['<svg viewBox="0 0 400 206" width="100%" role="img" aria-label="三情境組合市值走勢" style="display:block;max-width:640px;margin:0 auto">']
@@ -60,7 +60,7 @@ def cell(tk,d):
 hdr2='<tr><th>個股</th>'+''.join(f'<th>{int(d[5:7])}/{int(d[8:])}</th>' for d in DT)+'</tr>'
 trs2=''.join(f'<tr><td class="ticker">{t}</td>'+''.join(cell(t,d) for d in DT)+'</tr>' for t,*_ in H)
 fc=f"""  <div class="card">
-    <h2>四個時間點三情境推估（§1-10，從 10/28 盤中 ${MV0:,.0f} 出發，全部抱著）</h2>
+    <h2>四個時間點三情境推估（§1-10，從 10/29 盤中 ${MV0:,.0f} 出發，全部抱著）</h2>
     {''.join(svg)}
     <div class="tblwrap"><table>
       <tr><th>日期</th><th>樂觀（+1σ）</th><th>中性（年化 10%）</th><th>悲觀（−1σ）</th></tr>
@@ -70,13 +70,17 @@ fc=f"""  <div class="card">
       {hdr2}
       {trs2}
     </table></div>
-    <div class="small">起點＝10/28 盤中券商截圖（正式收盤數字等 10/30 週報）。組合格：市值＋對成本 ${COST:,.2f} 的報酬率；⚑＝那一路會碰到的規則（地板破→減或全出，停利碰到→減）。個股格：中性價＋對你均價的報酬率，下行是悲觀–樂觀區間（SOXX 用拆股前價格，11/5 後 ÷3）。<b>不是預測</b>：中性一律年化 10%、樂觀／悲觀＝±1 個標準差（假設波動 AAPL 25%、GOOGL 30%、TSM／SOXX 40%、NVDA 45%、MU／TSLA 55%、SPCX 70%），8 檔假設一起好／一起壞。<br><b>季節性只當參考、沒放進模型</b>：期中選舉後 12 個月 S&amp;P 歷史平均約 +15%（1942 年起，Yardeni）、12 月平均 +1.4%（1928 年起）；中性路到年底 +1.7%，跟 11–12 月歷史平均差不多。但這次 Fed 在升息、組合 75% 是半導體，跟歷史平均的環境不一樣。<b>樂觀路 11/6 就碰 TSLA $420、AAPL $360 停利；悲觀路年底碰 TSM 戰術倉 $400、MU $810、SPCX $110、SOXX 地板。</b></div>
+    <div class="small">起點＝10/29 盤中券商截圖（GOOGL 已 5 股；正式收盤數字等 10/30 週報）。組合格：市值＋對成本 ${COST:,.2f} 的報酬率；⚑＝那一路會碰到的規則（地板破→減或全出，停利碰到→減）。個股格：中性價＋對你均價的報酬率，下行是悲觀–樂觀區間（SOXX 用拆股前價格，11/5 後 ÷3）。<b>不是預測</b>：中性一律年化 10%、樂觀／悲觀＝±1 個標準差（假設波動 AAPL 25%、GOOGL 30%、TSM／SOXX 40%、NVDA 45%、MU／TSLA 55%、SPCX 70%），8 檔假設一起好／一起壞。<br><b>季節性只當參考、沒放進模型</b>：期中選舉後 12 個月 S&amp;P 歷史平均約 +15%（1942 年起，Yardeni）、12 月平均 +1.4%（1928 年起）；中性路到年底 +1.7%，跟 11–12 月歷史平均差不多。但這次 Fed 在升息、組合 75% 是半導體，跟歷史平均的環境不一樣。<b>GOOGL 現價已在 $290 地板下，所以三條路一開始都標 ⚑ GOOGL $290。</b></div>
   </div>"""
 
 G=F['goal']; grow=''
 for x in G['rows']:
     d=x['date']; tag=' <span class="dim">預設</span>' if d=='2027-06-30' else ''
     grow+=f'<tr><td class="ticker">{d[:4]}/{int(d[5:7])}/{int(d[8:])}{tag}</td><td class="tabular">${x["lump"]:,}</td><td class="tabular">${x["monthly"]:,} × {x["months"]} 個月</td><td class="tabular">約 {x["p"]}%</td></tr>'
+CP=F['compound']; crow=''
+for d in DT:
+    cs=[x for x in CP['rows'] if x['date']==d]; crow+=f'<tr><td class="ticker">{int(d[5:7])}/{int(d[8:])}<div class="meta">已投入 ${cs[0]["inv"]:,}</div></td>'+''.join(f'<td class="tabular"><b>${x["mv"]:,}</b> <span class="{"pos" if x["ret"]>=0 else "neg"}">{x["ret"]:+.1f}%</span></td>' for x in cs)+'</tr>'
+mrow=''.join(f'<tr><td class="ticker">${int(c):,}</td>'+''.join(f'<td class="tabular">{m if m else "—"}{" 個月" if m else ""}</td>' for m in ms)+'</tr>' for c,ms in CP['months_to'].items())
 goal=f"""  <div class="card">
     <h2>目標 $30,000 進度（起點 {G['start_date'][5:7].lstrip('0')}/{G['start_date'][8:]} 盤中 ${G['start_mv']:,.0f}）</h2>
     <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px"><span class="tabular" style="font-size:28px;font-weight:700;color:var(--accent)">{G['pct']}%</span><span class="tabular">目前 ${G['mv']:,.0f}｜還差 <b>${G['gap']:,.0f}</b>（+{G['gap']/G['mv']*100:.1f}%）</span></div>
@@ -86,6 +90,16 @@ goal=f"""  <div class="card">
       <tr><th>想在什麼時候到</th><th>現在一次投入</th><th>或每月投入</th><th>只靠行情的機率</th></tr>
       {grow}
     </table></div>
+    <h2 style="margin-top:18px">複利模式：全部抱著＋每月投入 ${CP['monthly']:,} 一起滾</h2>
+    <div class="tblwrap"><table>
+      <tr><th>時間點</th><th>樂觀</th><th>中性</th><th>悲觀</th></tr>
+      {crow}
+    </table></div>
+    <div class="tblwrap"><table>
+      <tr><th>每月投入</th><th>樂觀</th><th>中性</th><th>悲觀</th></tr>
+      {mrow}
+    </table></div>
+    <div class="small">上表：市值（括號是對「成本＋累計投入」的報酬率）。下表：幾個月後到 $30,000（— 表示 10 年內到不了）。複利要時間：{int(CP['split']['date'][5:7])}/{int(CP['split']['date'][8:])} 中性的 ${CP['split']['mv']:,} 裡，投入的錢 ${CP['split']['inv']:,}、原本部位長出約 ${CP['split']['base_growth']:,}、投入的錢長出約 ${CP['split']['contrib_growth']:,}。</div>
     <div class="small">用中性情境（年化 10%）算；悲觀路要投更多。機率是模型粗估（8 檔一起漲跌、組合波動約 {G['sig']*100:.0f}%）。目標日沒定前預設看 2027/6/30，可改。新錢放半導體以外才會降低 75% 的集中度；財報前 14 天不加碼。</div>
   </div>"""
 
@@ -95,9 +109,9 @@ body=f'''<div class="page">
   <div class="header">
     <div>
       <div class="eyebrow">個人化投資儀表板 · AI 科技核心股</div>
-      <h1>10/28 盤中 +11.6%｜選舉後・年底・3 月底・6 月底三情境</h1>
+      <h1>10/29 盤中｜GOOGL 跌破 $290 地板又加 1 股；複利模式推估</h1>
     </div>
-    <div class="datebadge">報告日 2026-10-28（v6.9）｜10/23 收盤＋10/28 盤中｜56 股</div>
+    <div class="datebadge">報告日 2026-10-29（v7.1）｜10/23 收盤＋10/29 盤中｜57 股</div>
   </div>
 
   <div class="conclusion">
@@ -105,7 +119,11 @@ body=f'''<div class="page">
   </div>
 
   <div class="okbar">
-    🕐 <b>10/28 盤中（券商截圖；你確認本週無交易）：市值約 $21,907、+$2,283（+11.63%）</b>，比 10/23 收盤多約 $1,096。TSM $438.50（戰術倉 −1.6%、離 $400 地板 8.8%）、SOXX $516.85（轉賺、離 $460 地板 11.0%）、MU 轉賺；<b>TSLA 離 $420 停利 4.6%、AAPL 離 $360 停利 4.1%</b>。盤中價不改下面的正式市值、圓餅圖和燈號，等 10/30 收盤週報。
+    🕐 <b>10/29 盤中（美東 10:5x 券商截圖）：8 檔 57 股、市值約 $21,788、成本 $19,910.62、+$1,877（+9.43%）</b>。TSM $432.42（戰術倉離 $400 地板 7.5%）、SOXX $511.86（持平）、MU $948.68（−0.2%）、TSLA $405.39（離 $420 停利 3.5%）、AAPL $349.12（離 $360 3.0%）。<b>下面的持倉表、圓餅圖還是 10/23 收盤（GOOGL 4 股）</b>，10/30 收盤週報一起換。
+  </div>
+
+  <div class="alertbar">
+    🔴 <b>GOOGL：10/29 買 1 股 @$285.88（書號 00000534）→ 5 股、均價 $306.18。</b>10/28 財報 EPS $2.12 遠低於預期約 $3.02（年減，營收 +25%、雲端 +103%），今天盤中約 $284，<b>已在 $290 地板下 2%</b>。這筆買在地板下方 → 紀律表記 <b>反向執行</b>（本季第 4 次）。<b>今天收盤若低於 $290 → 地板觸發</b>：8/29 總表沒寫減幾股，預設減 1 股，請你裁示要照做還是不執行。
   </div>
 
   <div class="alertbar">
@@ -249,5 +267,5 @@ body=f'''<div class="page">
 
 </body></html>'''
 open('dashboard.html','w',encoding='utf-8').write(head_art+body)
-open('holdings_dashboard_2026-10-28_v13.html','w',encoding='utf-8').write(head_nb+body)
+open('holdings_dashboard_2026-10-29_v14.html','w',encoding='utf-8').write(head_nb+body)
 print('ok')
