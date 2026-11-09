@@ -2,7 +2,7 @@
 name: ai-tech-giants-monitor
 description: 每週搜尋財經皓角（游庭皓）最新內容與『使用者實際持倉個股』重大新聞，產出【3 分鐘速讀、新手可直接照做】的週報並更新 Notion。報告以實際持股為準（非固定 10 檔），每次先依最新持倉截圖核對股數／均價。含新股 IPO 閉鎖期（lock-up）解禁追蹤、已定案的停損守則、觀察案機制、集中度上限與核心／戰術拆帳。ALWAYS trigger for「AI科技週報」「核心股週報」「持倉更新」「本週交易紀錄」「紅綠燈表」「SPCX 解禁」「財經皓角」「停損停利總表」，或使用者丟出券商庫存／成交截圖要求更新週報時。
 metadata:
-  version: "8.1"
+  version: "8.2"
   last_updated: "2026-11-09"
 ---
 
@@ -423,7 +423,7 @@ metadata:
 - **第二來源 Finnhub**：免費 key 存在雲端環境 `wsdfex0963` 的網路密鑰（主機 `finnhub.io`、header `X-Finnhub-Token`，由代理注入，程式與對話都不碰 key）。**11/9 存好後一直回 401「Invalid API key」→ key 內容不對或還沒啟用**，待使用者在環境設定重貼；修好後腳本自動交叉驗證（Finnhub 收盤 vs Yahoo，差 ≤ 0.02 標 ✅）。
 - **到價條件**寫在腳本最上面的 `ALERTS`（目前只有 MU ≥ $770 → 賣短期倉 1 股）；有到價時結束碼 2。
 - **每日收盤檢查排程** `trig_011f6GSUZC95wzLuXFVk2Gvn`：週一到週五美東 16:23、每次開新 session（省 token，不帶這個長對話）、推播到手機；只查 Yahoo、不寫 Notion、不改檔案。排程沒帶 MCP 連接器（本來就不需要）。
-- **TradingView**：沒有公開的行情數據 API；它的警報 webhook（付費方案）是 TradingView 主動打出去，**打不進這個 session**（session 的 webhook 只收 Anthropic artifact 服務簽章過的呼叫）。即時到價通知請使用者在 TradingView App 或券商 App 設警報（推播到手機，免寫程式）；想串 Telegram／Discord 要 TradingView 付費方案。
+- **不用 TradingView（11/9 使用者決定：「那就不要 TradingView，改成 yahoo finance」）**：資料與通知一律以 Yahoo Finance 為主。即時到價通知請使用者在 **Yahoo 財經 App**（或券商 App）對 MU 設價格提醒（高於 $770），推播到手機；每日收盤檢查是備援。背景：TradingView 沒有公開行情 API，警報 webhook 要付費、也打不進這個 session（session 的 webhook 只收 Anthropic artifact 服務簽章過的呼叫）。
 - 舊註記「行情 API（Yahoo、Stooq）被網路政策擋住」已不適用：Yahoo chart API 可用；`tw.stock.yahoo.com`（新聞頁）仍被擋。
 
 ---
