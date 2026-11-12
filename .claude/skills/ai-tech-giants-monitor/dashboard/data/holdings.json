@@ -1,0 +1,90 @@
+[
+ {
+  "symbol": "TSM",
+  "shares": 22,
+  "weight_pct": 42.8,
+  "close": 413.35,
+  "day_pct": 4.3,
+  "week_pct": 10.1,
+  "light": "green",
+  "light_label": "綠燈",
+  "note": "10 月營收創單月新高，年增 59.7%"
+ },
+ {
+  "symbol": "MU",
+  "shares": 5,
+  "weight_pct": 19.1,
+  "close": 811.3,
+  "day_pct": 11.9,
+  "week_pct": 17.6,
+  "light": "red",
+  "light_label": "紅燈",
+  "note": "短期倉到價，照規則賣 1 股。長期面還有長鑫（CXMT）與台積電 3D DRAM 兩個疑慮"
+ },
+ {
+  "symbol": "TSLA",
+  "shares": 6,
+  "weight_pct": 11.0,
+  "close": 390.84,
+  "day_pct": 2.9,
+  "week_pct": 9.1,
+  "light": "green",
+  "light_label": "綠燈",
+  "note": ""
+ },
+ {
+  "symbol": "NVDA",
+  "shares": 12,
+  "weight_pct": 9.8,
+  "close": 173.73,
+  "day_pct": 2.9,
+  "week_pct": -6.9,
+  "light": "amber",
+  "light_label": "黃燈",
+  "note": "執行長捲入調查的報導，董事會聘外部律師、FBI 介入。11/17 盤後財報"
+ },
+ {
+  "symbol": "GOOGL",
+  "shares": 6,
+  "weight_pct": 8.3,
+  "close": 293.45,
+  "day_pct": 2.1,
+  "week_pct": 3.0,
+  "light": "amber",
+  "light_label": "黃燈",
+  "note": "雲端年增 103%，廣告成長五季最慢；下次驗證是 Q4 財報（約 2 月初）"
+ },
+ {
+  "symbol": "AAPL",
+  "shares": 3,
+  "weight_pct": 5.0,
+  "close": 355.63,
+  "day_pct": 2.0,
+  "week_pct": 3.9,
+  "light": "green",
+  "light_label": "綠燈",
+  "note": ""
+ },
+ {
+  "symbol": "SPCX",
+  "shares": 5,
+  "weight_pct": 3.3,
+  "close": 139.75,
+  "day_pct": -2.3,
+  "week_pct": 4.1,
+  "light": "green",
+  "light_label": "綠燈",
+  "note": "12/8 全數解禁"
+ },
+ {
+  "symbol": "SOXX",
+  "shares": 1,
+  "weight_pct": 0.7,
+  "close": 155.4,
+  "day_pct": 6.0,
+  "week_pct": 13.8,
+  "light": "green",
+  "light_label": "綠燈",
+  "note": ""
+ }
+]

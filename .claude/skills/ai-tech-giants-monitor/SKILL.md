@@ -2,8 +2,8 @@
 name: ai-tech-giants-monitor
 description: 每週搜尋財經皓角（游庭皓）最新內容與『使用者實際持倉個股』重大新聞，產出【3 分鐘速讀、新手可直接照做】的週報並更新 Notion。報告以實際持股為準（非固定 10 檔），每次先依最新持倉截圖核對股數／均價。含新股 IPO 閉鎖期（lock-up）解禁追蹤、已定案的停損守則、觀察案機制、集中度上限與核心／戰術拆帳。ALWAYS trigger for「AI科技週報」「核心股週報」「持倉更新」「本週交易紀錄」「紅綠燈表」「SPCX 解禁」「財經皓角」「停損停利總表」，或使用者丟出券商庫存／成交截圖要求更新週報時。
 metadata:
-  version: "8.3"
-  last_updated: "2026-11-10"
+  version: "8.4"
+  last_updated: "2026-11-12"
 ---
 
 # AI 科技核心股週報
@@ -196,6 +196,12 @@ metadata:
      - 🆕 **11/9 成交：NVDA 買 1 股 @$177.57**（書號 00000354）→ 12 股、均價 $181.12、成本 $2,173.46；**8 檔 60 股、總成本 $20,726.32**。核心倉規則「只能減不能加」→ 記一筆「核心倉加碼」（11/6 後第 1 筆），並問使用者要不要改規則（① 照舊／② 允許逢低加碼、每檔設股數上限）。NEW_MONEY 1,174.54。
        - 11/9 收盤（Yahoo＝券商截圖 8 檔一致 ✅）：市值 $20,265.81、−460.51 美元（−2.22%）；目標 67.6%。MU $733.15（+6.3%）→ **短期倉那 1 股已賺約 37 美元，SOXX 虧損補回一半**，離 $770 還差 5.0%（1 個月內碰到約 66%）。儀表板 v19（Artifact 第 38 版）。
        - 🔧 **使用者說「收不到自動化報價通知」**：排程 11/9 有跑（12 秒、成功，結果「MU 收 $733.15（最高 $744.74），離 $770 還差 5.0%」），但**沒到價的一行簡報不被當成「值得推播」**。已改 prompt：沒到價也寫成「📊 每日報價通知」兩行格式；11/10 的執行要檢查有沒有真的推到手機，沒有的話就跟使用者說：每日簡報要到 Claude App 的排程工作紀錄看，即時通知靠 Yahoo 財經 App 價格提醒。查排程結果的方法：`get_trigger` 看 `last_run.session_id` → `list_events`（kinds：assistant、result）。
+     - 🆕 **11/10–11/11 更新（持倉不變）＋重產新儀表板**
+       - 11/10 收盤：市值 $20,285、−441 美元（−2.1%）。11/11 收盤（Yahoo）：TSM $413.35、MU $811.30（+11.9%）、NVDA $173.73、TSLA $390.84、GOOGL $293.45、AAPL $355.63、SPCX $139.75、SOXX $155.40 → **市值 $21,261.74、+535 美元（+2.6%）**；比前一交易日 +4.8%；本週行情 +8.4%（11/6 → 11/11，扣掉 11/9 新投入）；目標 70.9%、還差 8,738。
+       - 🔴 **MU 短期倉到價**：11/11 收 $811.30（盤中最高 $827.58）≥ $770 → 照規則賣 1 股（約賺 115 美元，SOXX 兩股虧的 71.66 美元補回來還多約 43 美元）。**等使用者貼成交截圖**：MU 回 4 股、NEW_MONEY 扣掉賣出拿回的錢、`data/portfolio.json` 的 `short_term.status` 改 `sold`、每日排程的到價條件拿掉。
+       - 新聞：**NVDA 11/9–11/10 兩天跌 9.5%**（執行長捲入調查的報導：董事會聘外部律師、FBI 介入、另報約 75 億美元晶片流入中國）→ 論點 ⚠️ 轉弱（治理），11/17 盤後財報；**台積電 10 月營收 NT$5,869 億、年增 59.7%**（單月新高，6-K 11/10）→ 論點變強；MU 11/11 大漲的原因（Anthropic 上市投資團）還沒完全確認。
+       - 🔧 每日報價排程 **11/10 那次失敗：`USAGE_LIMIT_REACHED`**（帳號用量上限，不是程式錯，當天沒推播）；11/11 正常。→ 到價提醒一定要在 Yahoo 財經 App 另設一份當備援。
+       - 🖥️ **新儀表板（Data 型 Artifact）**：https://claude.ai/artifact/FxqXJG1BiFKtkvYwUFeCWw ——使用者 11/11 要「重跑一次、產生新的 artifacts」，中途被 worker 重啟打斷，11/12 完成。做法見 §1-9 開頭。舊儀表板 DVzgsTJM7C72dvRpueAwis 保留不動。
      - 盤中數字（僅供參考）：市值約 $20,554.78、+$1,441.61（+7.54%）；半導體三檔約 74.1%（SPOT 換成 TSM，非半導體少一檔）。SPCX 約 $146.47（已在 $150 下，10/14 裁示不減，地板 $110）；MU 約 $911.90（離 $810 地板約 11%）。
      - 🔧 **sed 替換字串裡不能有 `&`**（會被換成整段比對到的文字，10/14 儀表板因此多出一段重複字）；HTML 實體（`&gt;`）的替換一律用 Python。Notion 上傳網址 `api.notion.com` 被這個環境擋（403），HTML 內嵌改用 `notion-create-attachment` 的 `content` 直接傳。
      - 🔧 **自己犯的錯（10/11 更正）**：10/09、10/10 兩版報告寫「目前沒有任何規則會讓 MU 出場」，但 MU 一直有 $810 地板。**寫「沒有規則」之前，先查 Notion 8/29〈停損停利 × 進退場 總表〉跟後面的裁示**，不能只靠 skill 裡寫到的部分。已在 Notion 頁加更正標示。
@@ -380,6 +386,21 @@ metadata:
 
 ### 1-9 個人化投資儀表板網頁（09/09 新增，每期必附）
 
+> **11/12 起主儀表板＝ Data 型 Artifact**：https://claude.ai/artifact/FxqXJG1BiFKtkvYwUFeCWw（「AI 科技核心股儀表板」）。舊的 DVzgsTJM7C72dvRpueAwis（gen_dashboard.py v2）留著當備份，使用者沒要求就不再更新。
+>
+> ```
+> data/portfolio.json（股數、成本、目標、短期倉；唯一有成本的檔，不上傳）─┐
+> data/closes.csv（quotes.py 抓 Yahoo）──────────────────────────────┼→ scripts/build_data.py [--asof 日期]
+> data/notes.json（燈號說明、待辦、行事曆、新聞；每期手改）───────────┘        ↓
+>                         dashboard/data/{summary,holdings,scenarios,goal_plan,compound,notes}.json（不含成本、均價）
+>                                       ↓ 上傳成附檔 → datasets/<id> 指到 /_blob/<id>
+>                         dashboard/index.html（固定版型，數字全部從資料來；換期不用改頁面）
+> ```
+>
+> - **每期更新**：① quotes.py 更新 closes.csv；② 有交易就改 portfolio.json，改 notes.json；③ 跑 build_data.py；④ 六個 JSON 各用一次 Artifact publish（`url`＋`file_path`＋`asset: true`）上傳，拿到 `/_blob/<id>`；⑤ ArtifactData `batch`：每個 `datasets/<id>` 用 `update`（帶 `if_version`）改 `source.url`、`updated`、`edit`，頁面有改才寫 `files/index.html`；⑥ 讀 `data/users/me` 的 `check`／`runs`／`page`，`passed` 才交差；⑦ 舊附檔用 Artifact delete（`url`＋`path`＝id）清掉。
+> - **隱私**：附檔是每個打得開頁面的人都讀得到的 → 只放股數、佔比、收盤價、總報酬；成本、均價、成交價一律不放。
+> - **先在本機看過再上傳**：scratchpad 的 harness（模擬 `dash.data`／`dash.draw`）用 Playwright 跑 400px 和 1100px，檢查沒有錯誤、沒有空白數字，**每個清單區都有內容**（11/12 抓到 notes 的分類名稱被截掉一個字，行事曆和新聞兩區整個空白）。
+
 > 一句話：跟 Notion 週報用同一組數據，多做一份「一頁看完」的網頁版，手機隨時打開不用滑很多層。
 
 **兩個版本，內容一致，只差外部資源（不是兩份不同的報告，是同一份的兩種輸出）**
@@ -415,7 +436,7 @@ metadata:
 - **目標日**：使用者沒定前預設 **2027/6/30**（每月約 808 美元，10/28 算），表上同時列 12/31、3/31、6/30、2027/12/31 四個選項。使用者定了就改預設、記一筆。
 - **放哪裡**：儀表板統計卡下面一張「目標進度」卡（進度條＋四列表）；Notion 週報速讀區後面一段。
 - **不得因為目標而改規則**：「想快一點到」不構成加碼、提高上限或放寬地板的理由。新錢要守既有上限（MU、SOXX、SPCX 已滿；NVDA、TSM 長抱倉只能減）、財報前 14 天不加碼；新錢放半導體以外才會降低集中度，報告每期提一次。
-- **產生器**：`scripts/dashboard/gen_dashboard.py`（先跑 scenario_model.py 產 out.json，再跑它；head 檔在同資料夾）。
+- **產生器**：新儀表板用 `scripts/build_data.py`（目標、情境、複利三塊都在裡面算，見 §1-9 開頭）；舊的 `scripts/dashboard/gen_dashboard.py` 只在更新備份儀表板時用（先跑 scenario_model.py 產 out.json，再跑它）。
 - **複利模式（10/29 新增）**：`scenario_model.py` 的 `compound` 區塊＝全部抱著不賣（停利只標 ⚑）、每月月底投入 MONTHLY，投入的錢跟著同一條情境路徑一起滾；輸出四個時間點三情境市值、「每月 0／300／500／808／1,000 美元幾個月到目標」、以及最後一個時間點的拆解（投入的錢／原部位長出的／投入長出的）。**一定要寫拆解**：8 個月內進度主要靠投入，複利要好幾年才明顯，不然使用者會以為複利能讓短期加速。
 
 ---
@@ -427,6 +448,8 @@ metadata:
 - **到價條件**寫在腳本最上面的 `ALERTS`（目前只有 MU ≥ $770 → 賣短期倉 1 股）；有到價時結束碼 2。
 - **每日收盤檢查排程** `trig_011f6GSUZC95wzLuXFVk2Gvn`：週一到週五美東 16:23、每次開新 session（省 token，不帶這個長對話）、推播到手機；只查 Yahoo、不寫 Notion、不改檔案。排程沒帶 MCP 連接器（本來就不需要）。
 - **不用 TradingView（11/9 使用者決定：「那就不要 TradingView，改成 yahoo finance」）**：資料與通知一律以 Yahoo Finance 為主。即時到價通知請使用者在 **Yahoo 財經 App**（或券商 App）對 MU 設價格提醒（高於 $770），推播到手機；每日收盤檢查是備援。背景：TradingView 沒有公開行情 API，警報 webhook 要付費、也打不進這個 session（session 的 webhook 只收 Anthropic artifact 服務簽章過的呼叫）。
+- **剛收盤時 Yahoo 日線最後一根常是空的（11/11 碰到）**：舊版直接丟掉 → CSV 少一天、「今日高」顯示前一天的。已改成用 meta 的 `regularMarketPrice`／`regularMarketDayHigh`／`regularMarketDayLow` 補上當天那根；看到 CSV 少最後一天就重跑一次。
+- **排程會因帳號用量上限停跑（11/10 `USAGE_LIMIT_REACHED`）**：那天不會有推播，所以 Yahoo 財經 App 的價格提醒一定要另設一份當備援。
 - 舊註記「行情 API（Yahoo、Stooq）被網路政策擋住」已不適用：Yahoo chart API 可用；`tw.stock.yahoo.com`（新聞頁）仍被擋。
 
 ---

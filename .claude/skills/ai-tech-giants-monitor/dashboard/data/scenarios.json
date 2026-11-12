@@ -1,0 +1,46 @@
+[
+ {
+  "date": "2026-11-11",
+  "label": "現在（11/11）",
+  "is_base": 1,
+  "optimistic": 21262,
+  "neutral": 21262,
+  "pessimistic": 21262,
+  "opt_ret": 2.6,
+  "neu_ret": 2.6,
+  "pes_ret": 2.6
+ },
+ {
+  "date": "2026-12-31",
+  "label": "2026/12/31",
+  "is_base": 0,
+  "optimistic": 25407,
+  "neutral": 21541,
+  "pessimistic": 18289,
+  "opt_ret": 22.6,
+  "neu_ret": 3.9,
+  "pes_ret": -11.8
+ },
+ {
+  "date": "2027-03-31",
+  "label": "2027/3/31",
+  "is_base": 0,
+  "optimistic": 29091,
+  "neutral": 22053,
+  "pessimistic": 16782,
+  "opt_ret": 40.4,
+  "neu_ret": 6.4,
+  "pes_ret": -19.0
+ },
+ {
+  "date": "2027-06-30",
+  "label": "2027/6/30",
+  "is_base": 0,
+  "optimistic": 32257,
+  "neutral": 22584,
+  "pessimistic": 15912,
+  "opt_ret": 55.6,
+  "neu_ret": 9.0,
+  "pes_ret": -23.2
+ }
+]

@@ -1,0 +1,302 @@
+<meta name="dash-one-writer">
+<style>
+.pf{container-type:inline-size;display:flex;flex-direction:column;gap:var(--cds-gap-xl);max-width:60rem;margin-inline:auto;color:var(--color-fg);font-family:var(--font-anthropic-sans);font-size:var(--cds-font-size-body);line-height:1.55;font-variant-numeric:tabular-nums}
+.pf [hidden]{display:none}
+.pf [data-dash-source-state=refreshing]{opacity:.5}
+.pf-head{display:flex;flex-direction:column;gap:var(--cds-gap-sm)}
+.pf-eyebrow{margin:0;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);letter-spacing:.04em}
+.pf-title{margin:0;font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);line-height:1.2}
+.pf-lead{margin:0;max-width:38em;font-size:var(--cds-font-size-heading);line-height:1.5}
+.pf-h2{margin:0;font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);line-height:1.3}
+.pf-sec{display:flex;flex-direction:column;gap:var(--cds-gap-md);min-width:0}
+.pf-muted{margin:0;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.pf-ok{color:var(--color-ok)}.pf-bad{color:var(--color-bad)}.pf-warn{color:var(--color-warn)}
+.pf-pill{display:inline-block;padding:0 .6em;border:1px solid currentColor;border-radius:99px;font-size:var(--cds-font-size-caption);font-weight:var(--cds-font-weight-medium);line-height:1.7;white-space:nowrap;vertical-align:middle}
+.pf-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:var(--cds-gap-md)}
+.pf-kpi{display:flex;flex-direction:column;gap:var(--cds-gap-xs);min-width:0;background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg)}
+.pf-kpi-label{color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.pf-kpi-value{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);line-height:1.15}
+.pf-kpi-sub{color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.pf-bar{height:.45rem;border-radius:99px;background:var(--color-border-line);overflow:hidden}
+.pf-bar i{display:block;height:100%;border-radius:99px}
+.pf-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:var(--cds-gap-xl)}
+.pf-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--cds-gap-md)}
+.pf-list li{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pf-row{display:flex;gap:var(--cds-gap-sm);align-items:baseline}
+.pf-date{flex:none;min-width:5.5em;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.pf-dot{display:inline-block;flex:none;width:.55rem;height:.55rem;border-radius:50%;margin-right:.45rem;background:var(--color-ok)}
+.pf-dot.pf-amber{background:var(--color-warn)}.pf-dot.pf-red{background:var(--color-bad)}
+.pf-sym{font-weight:var(--cds-font-weight-medium)}
+.pf-link{color:inherit;font-weight:var(--cds-font-weight-medium);text-decoration:underline;text-underline-offset:.2em}
+.pf-scroll{overflow-x:auto}
+.pf-table{width:100%;border-collapse:collapse}
+.pf-table th{padding:.35rem .5rem;border-bottom:1px solid var(--color-border-line);color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);font-weight:var(--cds-font-weight-medium);text-align:left;white-space:nowrap}
+.pf-table td{padding:.5rem;border-bottom:1px solid var(--color-border-line);vertical-align:middle;white-space:nowrap}
+.pf-table .pf-num{text-align:right}
+.pf-wbar{display:inline-block;width:3rem;height:.4rem;margin-right:.45rem;border-radius:99px;background:var(--color-border-line);overflow:hidden;vertical-align:middle}
+.pf-wbar i{display:block;height:100%}
+.pf-sub{display:block;font-size:var(--cds-font-size-caption)}
+.pf-default td{font-weight:var(--cds-font-weight-medium)}
+.pf-legend{display:flex;flex-wrap:wrap;gap:var(--cds-gap-xs) var(--cds-gap-lg);list-style:none;margin:0;padding:0;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.pf-sw{display:inline-block;width:.9rem;height:.2rem;margin-right:.4rem;border-radius:2px;vertical-align:middle;background:var(--color-fg-muted)}
+.pf-sw-ref{height:0;border-top:1px dashed var(--color-fg-muted);background:none}
+.pf-chart{position:relative;min-height:14rem}
+.pf-chart svg{display:block;width:100%;height:auto;overflow:visible}
+.pf-tick{fill:var(--cds-text-secondary);font-size:var(--cds-font-size-caption)}
+.pf-end{fill:var(--color-fg);font-size:var(--cds-font-size-caption);font-weight:var(--cds-font-weight-medium)}
+.pf-tip{position:absolute;z-index:1;pointer-events:none;padding:var(--cds-pad-sm);background:var(--cds-surface-popover);border:1px solid var(--cds-border);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);font-size:var(--cds-font-size-caption);white-space:nowrap}
+.pf-tip-row{display:flex;align-items:center;gap:.3rem}
+.pf-tip-v{margin-left:auto;padding-left:1em}
+.pf-details{border-top:1px solid var(--color-border-line);padding-top:var(--cds-pad-md)}
+.pf-details summary{cursor:pointer;font-weight:var(--cds-font-weight-medium)}
+.pf-details-body{display:flex;flex-direction:column;gap:var(--cds-gap-md);padding-top:var(--cds-pad-md)}
+.pf-foot{margin:0;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+@container (max-width:30rem){.pf-wide{display:none}.pf-wbar{display:none}.pf-table th,.pf-table td{padding-inline:.3rem}}
+</style>
+<div class="pf" id="pf-top">
+<header class="pf-head" id="pf-head">
+<p class="pf-eyebrow"><span data-draw="val" data-source="summary" data-field="as_of_label" data-row="0">—</span> 收盤 · <span data-draw="val" data-source="summary" data-field="n_holdings" data-row="0" data-fmt="int">—</span> 檔 <span data-draw="val" data-source="summary" data-field="n_shares" data-row="0" data-fmt="int">—</span> 股</p>
+<h1 class="pf-title" id="pf-title">AI 科技核心股</h1>
+<p class="pf-lead" id="pf-lead-hit" data-pf-when="hit" hidden><span class="pf-pill pf-bad">到價</span> 今天要動一件事：MU 收在 <b data-draw="val" data-source="summary" data-field="mu_close" data-row="0" data-fmt="usd2">—</b>，已經超過你設的 <b data-draw="val" data-source="summary" data-field="mu_target" data-row="0" data-fmt="usd0">—</b>，照規則賣出短期倉 1 股。其他持股不用動。</p>
+<p class="pf-lead" id="pf-lead-touched" data-pf-when="touched" hidden><span class="pf-pill pf-bad">到價</span> 今天要動一件事：MU 盤中最高到 <b data-draw="val" data-source="summary" data-field="mu_high" data-row="0" data-fmt="usd2">—</b>，碰到你設的 <b data-draw="val" data-source="summary" data-field="mu_target" data-row="0" data-fmt="usd0">—</b>，照規則賣出短期倉 1 股。其他持股不用動。</p>
+<p class="pf-lead" id="pf-lead-watch" data-pf-when="watch" hidden>今天不用動。只盯一條線：MU 短期倉到 <b data-draw="val" data-source="summary" data-field="mu_target" data-row="0" data-fmt="usd0">—</b> 就賣 1 股，收盤價離它還差 <b data-draw="val" data-source="summary" data-field="mu_gap_pct" data-row="0" data-fmt="pct1">—</b>。</p>
+<p class="pf-lead" id="pf-lead-done" data-pf-when="done" hidden>今天不用動。MU 短期倉已經賣出，全部持股都是長期抱著的核心倉。</p>
+</header>
+
+<section class="pf-kpis" id="pf-kpis" aria-label="重點數字">
+<div class="pf-kpi" id="pf-kpi-mv"><div class="pf-kpi-label">市值</div><div class="pf-kpi-value" data-draw="val" data-source="summary" data-field="market_value" data-row="0" data-fmt="usd0">—</div><div class="pf-kpi-sub">比前一個交易日 <span data-draw="val" data-source="summary" data-field="day_change_pct" data-row="0" data-fmt="spct1" data-tone="sign">—</span></div></div>
+<div class="pf-kpi" id="pf-kpi-ret"><div class="pf-kpi-label">未實現報酬</div><div class="pf-kpi-value" data-draw="val" data-source="summary" data-field="return_pct" data-row="0" data-fmt="spct1" data-tone="sign">—</div><div class="pf-kpi-sub"><span data-draw="val" data-source="summary" data-field="pnl" data-row="0" data-fmt="susd0">—</span>；本週行情 <span data-draw="val" data-source="summary" data-field="week_change_pct" data-row="0" data-fmt="spct1" data-tone="sign">—</span>（不含新投入）</div></div>
+<div class="pf-kpi" id="pf-kpi-goal"><div class="pf-kpi-label">目標 <span data-draw="val" data-source="summary" data-field="goal_target" data-row="0" data-fmt="usd0">—</span> 的進度</div><div class="pf-kpi-value" data-draw="val" data-source="summary" data-field="goal_pct" data-row="0" data-fmt="pct1">—</div><div class="pf-bar" data-draw="bar" data-source="summary" data-field="goal_pct" data-row="0"></div><div class="pf-kpi-sub">還差 <span data-draw="val" data-source="summary" data-field="goal_gap" data-row="0" data-fmt="usd0">—</span></div></div>
+<div class="pf-kpi" id="pf-kpi-mu"><div class="pf-kpi-label">MU 短期倉的進度</div><div class="pf-kpi-value" data-draw="val" data-source="summary" data-field="mu_progress_pct" data-row="0" data-fmt="pct0">—</div><div class="pf-bar" data-draw="bar" data-source="summary" data-field="mu_progress_pct" data-row="0"></div><div class="pf-kpi-sub"><span data-pf-when="watch" hidden>收盤 <span data-draw="val" data-source="summary" data-field="mu_close" data-row="0" data-fmt="usd2">—</span>，離 <span data-draw="val" data-source="summary" data-field="mu_target" data-row="0" data-fmt="usd0">—</span> 還差 <span data-draw="val" data-source="summary" data-field="mu_gap_pct" data-row="0" data-fmt="pct1">—</span></span><span data-pf-when="hit touched" hidden>已到 <span data-draw="val" data-source="summary" data-field="mu_target" data-row="0" data-fmt="usd0">—</span>，等你賣出 1 股</span><span data-pf-when="done" hidden>已賣出，SOXX 的虧損補回來了</span></div></div>
+</section>
+
+<section class="pf-two" id="pf-next">
+<div class="pf-sec" id="pf-todo"><h2 class="pf-h2">要做的事</h2><ul class="pf-list" data-draw="todos" data-source="notes"></ul></div>
+<div class="pf-sec" id="pf-watch"><h2 class="pf-h2">要注意的個股</h2><ul class="pf-list" data-draw="watch" data-source="holdings"></ul><p class="pf-muted" data-pf-none hidden>這期沒有紅燈或黃燈。</p><p class="pf-muted">綠燈、不用動：<span data-draw="greens" data-source="holdings" data-field="symbol">—</span></p></div>
+</section>
+
+<section class="pf-sec" id="pf-holdings">
+<h2 class="pf-h2">持倉</h2>
+<div class="pf-scroll"><table class="pf-table" data-source="holdings" data-row-key="symbol">
+<thead><tr><th data-field="symbol">個股</th><th data-field="shares" class="pf-num">股數</th><th data-field="weight_pct" class="pf-num">佔比</th><th data-field="close" class="pf-num">收盤</th><th data-field="day_pct" class="pf-num">當日</th><th data-field="week_pct" class="pf-num pf-wide">本週</th></tr></thead>
+<tbody data-draw="holdings"></tbody>
+</table></div>
+<p class="pf-muted">佔比用市值算。半導體（含 SOXX）合計 <span data-draw="val" data-source="summary" data-field="semi_pct" data-row="0" data-fmt="pct1">—</span>，TSLA 加 SPCX <span data-draw="val" data-source="summary" data-field="musk_pct" data-row="0" data-fmt="pct1">—</span>；TSM 如果跌 30%，整個組合會少 <span data-draw="val" data-source="summary" data-field="tsm_shock_pct" data-row="0" data-fmt="pct1">—</span>。</p>
+</section>
+
+<section class="pf-sec" id="pf-scenarios">
+<h2 class="pf-h2">三種情境下的市值</h2>
+<p class="pf-muted">從 <span data-draw="val" data-source="summary" data-field="as_of_label" data-row="0">—</span> 收盤的 <span data-draw="val" data-source="summary" data-field="market_value" data-row="0" data-fmt="usd0">—</span> 出發，假設全部抱著不動。小字是對總成本的報酬率。這是試算，不是預測。</p>
+<ul class="pf-legend" id="pf-legend"><li><i class="pf-sw" data-pf-sw="1"></i><span data-pf-name="o">樂觀</span></li><li><i class="pf-sw" data-pf-sw="0"></i><span data-pf-name="n">中性</span></li><li><i class="pf-sw" data-pf-sw="2"></i><span data-pf-name="p">悲觀</span></li><li><i class="pf-sw pf-sw-ref"></i>虛線是目標 <span data-draw="val" data-source="summary" data-field="goal_target" data-row="0" data-fmt="usd0">—</span></li></ul>
+<div class="pf-chart" id="pf-chart" data-draw="scen_chart" data-source="scenarios" data-label="樂觀、中性、悲觀三種情境下，組合市值到明年六月底的走勢">—</div>
+<div class="pf-scroll"><table class="pf-table" id="pf-scen-table">
+<thead><tr><th>日期</th><th class="pf-num">樂觀</th><th class="pf-num">中性</th><th class="pf-num">悲觀</th></tr></thead>
+<tbody data-draw="scen_rows" data-source="scenarios"></tbody>
+</table></div>
+</section>
+
+<section class="pf-two" id="pf-more">
+<div class="pf-sec" id="pf-calendar"><h2 class="pf-h2">接下來的日子</h2><ul class="pf-list" data-draw="calendar" data-source="notes"></ul></div>
+<div class="pf-sec" id="pf-news"><h2 class="pf-h2">這期發生的事</h2><ul class="pf-list" data-draw="news" data-source="notes"></ul></div>
+</section>
+
+<details class="pf-details" id="pf-goal">
+<summary>目標 <span data-draw="val" data-source="summary" data-field="goal_target" data-row="0" data-fmt="usd0">—</span>：要多久、每月要投多少</summary>
+<div class="pf-details-body">
+<p class="pf-muted">起點是 <span data-draw="val" data-source="summary" data-field="goal_start_label" data-row="0">—</span> 的 <span data-draw="val" data-source="summary" data-field="goal_start_mv" data-row="0" data-fmt="usd0">—</span>。從那天到現在，行情 <span data-draw="val" data-source="summary" data-field="goal_market" data-row="0" data-fmt="susd0" data-tone="sign">—</span>，新投入 <span data-draw="val" data-source="summary" data-field="goal_new_money" data-row="0" data-fmt="usd0">—</span>。兩個分開記，才看得出進度是賺來的還是投進來的。</p>
+<div class="pf-scroll"><table class="pf-table" data-source="goal_plan" data-row-key="target_date">
+<thead><tr><th data-field="label">想在這天達標</th><th data-field="lump_sum" class="pf-num">現在一次投入</th><th data-field="monthly" class="pf-num">或每月投入</th><th data-field="months" class="pf-num">月數</th><th data-field="prob_pct" class="pf-num">只靠行情的機率</th></tr></thead>
+<tbody data-draw="plan_rows"></tbody>
+</table></div>
+<p class="pf-muted">複利模式：全部抱著，每月固定投入，賺到的和投入的一起滾。下表是幾個月後達標；— 表示十年內到不了。</p>
+<div class="pf-scroll"><table class="pf-table" data-source="compound" data-row-key="monthly">
+<thead><tr><th data-field="monthly">每月投入</th><th data-field="optimistic_months" class="pf-num">樂觀</th><th data-field="neutral_months" class="pf-num">中性</th><th data-field="pessimistic_months" class="pf-num">悲觀</th></tr></thead>
+<tbody data-draw="comp_rows"></tbody>
+</table></div>
+</div>
+</details>
+
+<details class="pf-details" id="pf-method">
+<summary>這些數字怎麼來的</summary>
+<div class="pf-details-body">
+<p class="pf-muted">股數來自券商庫存截圖，收盤價來自 Yahoo Finance。成本與均價不放在這一頁，只顯示總報酬。</p>
+<p class="pf-muted">情境試算：中性是每年約 10%；樂觀與悲觀是往上、往下一個標準差，假設年波動 AAPL 25%、GOOGL 30%、TSM 與 SOXX 40%、NVDA 45%、MU 與 TSLA 55%、SPCX 70%，而且 8 檔一起漲跌。</p>
+<p class="pf-muted">燈號：紅燈是今天要動手，黃燈是投資理由轉弱或 14 天內有財報，其他是綠燈。全部持股都是核心倉，不設停損、不停利。</p>
+</div>
+</details>
+
+<p class="pf-foot">決策框架與資料整理，不是投資建議。</p>
+</div>
+<script>
+const F = { usd0: d3.format('$,.0f'), usd2: d3.format('$,.2f'), susd0: d3.format('+$,.0f'), int: d3.format(',d'),
+  pct0: (v) => d3.format('.0f')(v) + '%', pct1: (v) => d3.format('.1f')(v) + '%', spct1: (v) => d3.format('+.1f')(v) + '%' };
+const rowsOf = (id) => { const s = dash.data(id); return s.status === 'ok' && Array.isArray(s.data) ? s.data : null; };
+const node = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const mark = (e, id, field, where) => { e.dataset.source = id; e.dataset.field = field; if (where) e.dataset.where = where; return e; };
+const tone = (e, v) => { e.classList.toggle('pf-ok', v > 0); e.classList.toggle('pf-bad', v < 0); return e; };
+const ORDER = { red: 0, amber: 1, green: 2 };
+
+dash.onData(() => {
+  const s = rowsOf('summary'), st = s && s[0] ? s[0].mu_status : null;
+  document.querySelectorAll('[data-pf-when]').forEach((e) => { e.hidden = e.dataset.pfWhen.split(' ').indexOf(st) < 0; });
+  const h = rowsOf('holdings');
+  document.querySelectorAll('[data-pf-none]').forEach((e) => { e.hidden = !h || h.some((r) => r.light !== 'green'); });
+  document.querySelectorAll('[data-pf-sw]').forEach((e) => { e.style.background = dash.colors[+e.dataset.pfSw] || ''; });
+});
+
+dash.draw('val', (e) => {
+  const s = dash.data(e.dataset.source);
+  e.classList.toggle('dash-skeleton', s.status === 'loading');
+  const row = s.status === 'ok' && Array.isArray(s.data) ? s.data[+(e.dataset.row || 0)] : null;
+  const v = row ? row[e.dataset.field] : null;
+  if (v == null || v === '') { e.textContent = '—'; return; }
+  const f = F[e.dataset.fmt];
+  e.textContent = f ? f(+v) : String(v);
+  if (e.dataset.tone === 'sign') tone(e, +v);
+});
+
+dash.draw('bar', (e) => {
+  const rows = rowsOf(e.dataset.source), v = rows && rows[0] ? +rows[0][e.dataset.field] : 0;
+  const fill = node('i'); fill.style.width = Math.max(0, Math.min(100, v || 0)) + '%'; fill.style.background = dash.colors[0];
+  e.replaceChildren(fill);
+});
+
+dash.draw('watch', (ul) => {
+  const rows = (rowsOf('holdings') || []).filter((r) => r.light !== 'green').sort((a, b) => ORDER[a.light] - ORDER[b.light]);
+  ul.replaceChildren(...rows.map((r) => {
+    const li = node('li'), top = node('div', 'pf-row'), w = 'symbol=' + r.symbol;
+    top.append(mark(node('span', 'pf-pill ' + (r.light === 'red' ? 'pf-bad' : 'pf-warn'), r.light_label), 'holdings', 'light_label', w), mark(node('span', 'pf-sym', r.symbol), 'holdings', 'symbol', w));
+    li.append(top, mark(node('span', 'pf-muted', r.note), 'holdings', 'note', w));
+    return li;
+  }));
+});
+
+dash.draw('greens', (e) => {
+  const rows = (rowsOf('holdings') || []).filter((r) => r.light === 'green');
+  e.textContent = rows.length ? rows.map((r) => r.symbol).join('、') : '—';
+});
+
+dash.draw('holdings', (tb) => {
+  const rows = rowsOf('holdings');
+  if (!rows) { tb.replaceChildren(); return; }
+  tb.replaceChildren(...rows.map((r) => {
+    const tr = node('tr'); tr.dataset.key = r.symbol;
+    const c1 = node('td', 'pf-sym'); c1.append(node('i', 'pf-dot pf-' + r.light), document.createTextNode(r.symbol));
+    const c3 = node('td', 'pf-num'), bar = node('span', 'pf-wbar'), fill = node('i');
+    fill.style.width = Math.max(0, Math.min(100, +r.weight_pct)) + '%'; fill.style.background = dash.colors[0];
+    bar.append(fill); c3.append(bar, document.createTextNode(F.pct1(+r.weight_pct)));
+    tr.append(c1, node('td', 'pf-num', F.int(+r.shares)), c3, node('td', 'pf-num', F.usd2(+r.close)),
+      tone(node('td', 'pf-num', F.spct1(+r.day_pct)), +r.day_pct), tone(node('td', 'pf-num pf-wide', F.spct1(+r.week_pct)), +r.week_pct));
+    return tr;
+  }));
+});
+
+dash.draw('scen_rows', (tb) => {
+  const rows = rowsOf('scenarios');
+  if (!rows) { tb.replaceChildren(); return; }
+  tb.replaceChildren(...rows.filter((r) => +r.is_base !== 1).map((r) => {
+    const tr = node('tr'), w = 'date=' + r.date;
+    tr.append(mark(node('td', null, r.label), 'scenarios', 'label', w));
+    [['optimistic', 'opt_ret'], ['neutral', 'neu_ret'], ['pessimistic', 'pes_ret']].forEach(([a, b]) => {
+      const td = node('td', 'pf-num');
+      td.append(mark(node('span', null, F.usd0(+r[a])), 'scenarios', a, w), tone(mark(node('span', 'pf-sub', F.spct1(+r[b])), 'scenarios', b, w), +r[b]));
+      tr.append(td);
+    });
+    return tr;
+  }));
+});
+
+dash.draw('scen_chart', (box) => {
+  const raw = rowsOf('scenarios');
+  if (!raw || !raw.length) { box.replaceChildren(document.createTextNode('—')); return; }
+  const sum = rowsOf('summary'), target = sum && sum[0] ? +sum[0].goal_target : null;
+  const parse = d3.utcParse('%Y-%m-%d'), fd = d3.utcFormat('%-m/%-d');
+  const rows = raw.map((r) => ({ t: parse(r.date), label: r.label, o: +r.optimistic, n: +r.neutral, p: +r.pessimistic, or: +r.opt_ret, nr: +r.neu_ret, pr: +r.pes_ret }));
+  const scope = box.closest('section') || document;
+  const name = (k) => { const e = scope.querySelector('[data-pf-name="' + k + '"]'); return e ? e.textContent : ''; };
+  const S = [{ k: 'o', r: 'or', c: dash.colors[1] }, { k: 'n', r: 'nr', c: dash.colors[0] }, { k: 'p', r: 'pr', c: dash.colors[2] }];
+  const W = Math.max(280, box.clientWidth || 640), H = Math.round(Math.max(220, Math.min(320, W * 0.52)));
+  box.replaceChildren();
+  const svg = d3.select(box).append('svg').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', box.dataset.label || '');
+  const meas = (txt, cls) => { const t = svg.append('text').attr('class', cls).text(txt); const w = t.node().getComputedTextLength() || txt.length * 7; t.remove(); return w; };
+  const last = rows[rows.length - 1], vals = rows.flatMap((d) => [d.o, d.n, d.p]).concat(target ? [target] : []);
+  const y = d3.scaleLinear().domain([d3.min(vals) * 0.96, d3.max(vals) * 1.04]).nice(4);
+  const yt = y.ticks(4), tf = (v) => '$' + d3.format('~s')(v);
+  const mL = Math.ceil(d3.max(yt, (v) => meas(tf(v), 'pf-tick'))) + 10, mR = Math.ceil(d3.max(S, (s) => meas(F.usd0(last[s.k]), 'pf-end'))) + 14, mT = 10, mB = 26;
+  y.range([H - mB, mT]);
+  const x = d3.scaleUtc().domain(d3.extent(rows, (d) => d.t)).range([mL, W - mR]);
+  const g = svg.append('g');
+  yt.forEach((v) => {
+    g.append('line').attr('x1', mL).attr('x2', W - mR).attr('y1', y(v)).attr('y2', y(v)).style('stroke', 'var(--cds-chart-grid)');
+    g.append('text').attr('class', 'pf-tick').attr('x', mL - 6).attr('y', y(v)).attr('dy', '0.32em').attr('text-anchor', 'end').text(tf(v));
+  });
+  rows.forEach((d, i) => g.append('text').attr('class', 'pf-tick').attr('x', x(d.t)).attr('y', H - 6).attr('text-anchor', i === 0 ? 'start' : 'middle').text(fd(d.t)));
+  if (target != null) g.append('line').attr('x1', mL).attr('x2', W - mR).attr('y1', y(target)).attr('y2', y(target)).style('stroke', 'var(--cds-chart-reference)').style('stroke-dasharray', '4 4');
+  const guide = g.append('line').attr('y1', mT).attr('y2', H - mB).style('stroke', 'var(--cds-chart-axis)').style('display', 'none');
+  S.forEach((s) => {
+    g.append('path').attr('fill', 'none').attr('d', d3.line().x((d) => x(d.t)).y((d) => y(d[s.k]))(rows)).style('stroke', s.c).style('stroke-width', 2);
+    rows.slice(1).forEach((d) => g.append('circle').attr('r', 3).attr('cx', x(d.t)).attr('cy', y(d[s.k])).style('fill', s.c));
+  });
+  g.append('circle').attr('r', 3.5).attr('cx', x(rows[0].t)).attr('cy', y(rows[0].n)).style('fill', 'var(--color-fg)');
+  const ends = S.map((s) => ({ s, y: y(last[s.k]) })).sort((a, b) => a.y - b.y);
+  for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 14) ends[i].y = ends[i - 1].y + 14;
+  ends.forEach((e) => g.append('text').attr('class', 'pf-end').attr('x', W - mR + 8).attr('y', e.y).attr('dy', '0.32em').text(F.usd0(last[e.s.k])));
+  const tip = node('div', 'pf-tip'); tip.hidden = true; box.append(tip);
+  const show = (ev) => {
+    const mx = d3.pointer(ev, svg.node())[0], d = d3.least(rows, (r) => Math.abs(x(r.t) - mx));
+    guide.attr('x1', x(d.t)).attr('x2', x(d.t)).style('display', null);
+    tip.replaceChildren(node('b', null, d.label), ...S.map((s) => {
+      const row = node('div', 'pf-tip-row'), sw = node('i', 'pf-sw'); sw.style.background = s.c;
+      row.append(sw, node('span', null, name(s.k)), node('span', 'pf-tip-v', F.usd0(d[s.k]) + '（' + F.spct1(d[s.r]) + '）'));
+      return row;
+    }));
+    tip.hidden = false;
+    const k = (box.clientWidth || W) / W;
+    tip.style.left = Math.max(0, Math.min(x(d.t) * k + 10, (box.clientWidth || W) - tip.offsetWidth - 2)) + 'px';
+    tip.style.top = (mT * k + 4) + 'px';
+  };
+  svg.on('pointermove', show).on('pointerdown', show).on('pointerleave', () => { tip.hidden = true; guide.style('display', 'none'); });
+});
+
+dash.draw('plan_rows', (tb) => {
+  const rows = rowsOf('goal_plan');
+  if (!rows) { tb.replaceChildren(); return; }
+  tb.replaceChildren(...rows.map((r) => {
+    const tr = node('tr', +r.is_default === 1 ? 'pf-default' : null); tr.dataset.key = r.target_date;
+    tr.append(node('td', null, r.label), node('td', 'pf-num', F.usd0(+r.lump_sum)), node('td', 'pf-num', F.usd0(+r.monthly)), node('td', 'pf-num', F.int(+r.months)), node('td', 'pf-num', F.pct0(+r.prob_pct)));
+    return tr;
+  }));
+});
+
+dash.draw('comp_rows', (tb) => {
+  const rows = rowsOf('compound');
+  if (!rows) { tb.replaceChildren(); return; }
+  const mo = (v) => (v == null || v === '' ? '—' : F.int(+v));
+  tb.replaceChildren(...rows.map((r) => {
+    const tr = node('tr'); tr.dataset.key = String(r.monthly);
+    tr.append(node('td', null, F.usd0(+r.monthly)), node('td', 'pf-num', mo(r.optimistic_months)), node('td', 'pf-num', mo(r.neutral_months)), node('td', 'pf-num', mo(r.pessimistic_months)));
+    return tr;
+  }));
+});
+
+const list = (name, kind, build) => dash.draw(name, (ul) => { ul.replaceChildren(...(rowsOf('notes') || []).filter((r) => r.kind === kind).map(build)); });
+list('todos', 'todo', (r) => {
+  const li = node('li'), top = node('div', 'pf-row'), w = 'key=' + r.key;
+  top.append(node('i', 'pf-dot pf-' + (r.tone || 'green')), mark(node('b', null, r.title), 'notes', 'title', w));
+  li.append(top); if (r.detail) li.append(mark(node('span', 'pf-muted', r.detail), 'notes', 'detail', w));
+  return li;
+});
+list('calendar', 'calendar', (r) => {
+  const li = node('li'), top = node('div', 'pf-row'), w = 'key=' + r.key;
+  top.append(mark(node('span', 'pf-date', r.date_label), 'notes', 'date_label', w), mark(node('b', null, r.title), 'notes', 'title', w));
+  li.append(top); if (r.detail) li.append(mark(node('span', 'pf-muted', r.detail), 'notes', 'detail', w));
+  return li;
+});
+list('news', 'news', (r) => {
+  const li = node('li'), w = 'key=' + r.key, safe = /^https:\/\//.test(r.url || '');
+  const t = mark(node(safe ? 'a' : 'b', 'pf-link', r.title), 'notes', 'title', w);
+  if (safe) { t.href = r.url; t.target = '_blank'; t.rel = 'noopener'; }
+  li.append(t); if (r.detail) li.append(mark(node('span', 'pf-muted', r.detail), 'notes', 'detail', w));
+  return li;
+});
+</script>
