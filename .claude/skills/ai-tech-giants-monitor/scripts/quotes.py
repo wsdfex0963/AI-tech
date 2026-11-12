@@ -17,7 +17,7 @@ def yahoo(sym,days):
     r=get(f'https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range={days}d&interval=1d')['chart']['result'][0]
     m=r['meta']; q=r['indicators']['quote'][0]; reg=m.get('currentTradingPeriod',{}).get('regular',{})
     now=time.time(); live=reg.get('start',0)<=now<reg.get('end',0)          # 盤中：最後一根還不是收盤
-    bars=[dict(date=str(dt.datetime.fromtimestamp(t,dt.timezone.utc).date()),high=h,low=l,close=round(c,2))
+    bars=[dict(date=str(dt.datetime.fromtimestamp(t,dt.timezone.utc).date()),high=round(h,2) if h is not None else None,low=round(l,2) if l is not None else None,close=round(c,2))
           for t,h,l,c in zip(r['timestamp'],q['high'],q['low'],q['close']) if c is not None]
     mdate=str(dt.datetime.fromtimestamp(m['regularMarketTime'],dt.timezone.utc).date())
     if not live and (not bars or bars[-1]['date']<mdate):               # 剛收盤時日線最後一根常是空的：用收盤後的報價補上
