@@ -3,8 +3,8 @@
   "kind": "todo",
   "key": "t1",
   "date_label": "",
-  "title": "賣 MU 短期倉 1 股",
-  "detail": "11/11 收盤已超過目標價。賣完 MU 回到 4 股；貼成交截圖後，目標進度的新投入會跟著扣回",
+  "title": "MU 短期倉：到價了，還沒賣",
+  "detail": "11/11 收盤 $811.30 已超過 $770。規則照舊：收盤還在 $770 以上，每天的報價通知都會提醒",
   "tone": "red",
   "url": ""
  },
@@ -12,8 +12,8 @@
   "kind": "todo",
   "key": "t2",
   "date_label": "",
-  "title": "NVDA：要不要重訂出場條件",
-  "detail": "治理風險讓投資理由轉弱，而核心倉沒有停損。11/9 加碼的規則也還沒定：照舊只減不加，或允許逢低加碼並設股數上限",
+  "title": "NVDA：補成交截圖、訂股數上限",
+  "detail": "你選了逢低加碼（②）。這筆在 11/17 財報前 14 天內，記一筆；上限建議 15 股，等你確認",
   "tone": "amber",
   "url": ""
  },
@@ -32,6 +32,15 @@
   "date_label": "11/17（二）",
   "title": "NVDA 第三季財報",
   "detail": "盤後公布；看資料中心營收與調查進展",
+  "tone": "",
+  "url": ""
+ },
+ {
+  "kind": "calendar",
+  "key": "c2b",
+  "date_label": "11/18（三）",
+  "title": "NVDA 執行長國會作證（要求）",
+  "detail": "眾議院共和黨議員要求出席，說明婚外情與國安疑慮",
   "tone": "",
   "url": ""
  },
@@ -75,10 +84,10 @@
   "kind": "news",
   "key": "n2",
   "date_label": "",
-  "title": "NVDA 11/9–11/10 兩天跌 9.5%，執行長捲入調查的報導",
-  "detail": "據 Yahoo Finance、TipRanks：董事會聘外部律師獨立調查，FBI 介入；另有報導稱約 75 億美元晶片流入中國。這是新的治理風險，投資理由轉弱。",
+  "title": "NVDA：執行長承認婚外情，董事會獨立調查",
+  "detail": "11/8 內部信承認；對象是新加坡 Megaspeed 主管，美方懷疑與中國情報有關（未證實，中方否認）。輝達稱沒有機密外洩跡象。11/9–11/10 股價兩天跌 9.5%。",
   "tone": "",
-  "url": "https://finance.yahoo.com/markets/stocks/articles/why-nvidia-stock-fell-again-171454098.html"
+  "url": "https://aljazeera.com/news/2026/11/8/us-chipmaker-nvidia-investigates-ceo-jensen-huang-over-affair"
  },
  {
   "kind": "news",

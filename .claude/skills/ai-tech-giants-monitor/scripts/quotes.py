@@ -6,6 +6,7 @@
 #   結束碼：0＝沒有到價、2＝至少一條到價（排程可用來決定要不要通知）。
 import argparse, csv, json, os, sys, time, urllib.request, datetime as dt
 TICKERS=['TSM','MU','NVDA','TSLA','GOOGL','AAPL','SPCX','SOXX']
+USE_FINNHUB=False   # 11/12 使用者：第二來源這條路先不要走（key 一直 401）；要恢復改 True
 ALERTS=[('MU','>=',770.0,'MU 短期倉碰 $770 → 賣 1 股（賺回 SOXX 虧損）')]   # (代號, 方向, 價位, 要做的事)
 
 def get(url):
@@ -20,7 +21,8 @@ def yahoo(sym,days):
           for t,h,l,c in zip(r['timestamp'],q['high'],q['low'],q['close']) if c is not None]
     mdate=str(dt.datetime.fromtimestamp(m['regularMarketTime'],dt.timezone.utc).date())
     if not live and (not bars or bars[-1]['date']<mdate):               # 剛收盤時日線最後一根常是空的：用收盤後的報價補上
-        bars.append(dict(date=mdate,high=m.get('regularMarketDayHigh'),low=m.get('regularMarketDayLow'),close=round(m['regularMarketPrice'],2)))
+        r2=lambda v: round(v,2) if v is not None else None
+        bars.append(dict(date=mdate,high=r2(m.get('regularMarketDayHigh')),low=r2(m.get('regularMarketDayLow')),close=round(m['regularMarketPrice'],2)))
     return dict(symbol=sym,last=round(m.get('regularMarketPrice'),2),live=live,bars=bars)
 
 def finnhub(sym):
@@ -32,7 +34,7 @@ def main():
     a=ap.parse_args(); rows=[]; hits=[]
     for s in TICKERS:
         y=yahoo(s,a.days); fin=[b for b in y['bars']][: -1 if y['live'] else None]   # 只有收完的才算收盤
-        prev=fin[-1]['close'] if fin else None; f=finnhub(s); check='—'
+        prev=fin[-1]['close'] if fin else None; f=finnhub(s) if USE_FINNHUB else None; check='—'
         if f and f.get('pc'):                                                  # 交叉驗證：Finnhub 前收 vs Yahoo 最後一根收盤
             ref=fin[-2]['close'] if (not y['live'] and len(fin)>1) else prev
             fv=f['c'] if not y['live'] else f['pc']; yv=prev if not y['live'] else ref

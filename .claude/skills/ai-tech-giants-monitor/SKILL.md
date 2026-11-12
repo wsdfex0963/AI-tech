@@ -202,6 +202,11 @@ metadata:
        - 新聞：**NVDA 11/9–11/10 兩天跌 9.5%**（執行長捲入調查的報導：董事會聘外部律師、FBI 介入、另報約 75 億美元晶片流入中國）→ 論點 ⚠️ 轉弱（治理），11/17 盤後財報；**台積電 10 月營收 NT$5,869 億、年增 59.7%**（單月新高，6-K 11/10）→ 論點變強；MU 11/11 大漲的原因（Anthropic 上市投資團）還沒完全確認。
        - 🔧 每日報價排程 **11/10 那次失敗：`USAGE_LIMIT_REACHED`**（帳號用量上限，不是程式錯，當天沒推播）；11/11 正常。→ 到價提醒一定要在 Yahoo 財經 App 另設一份當備援。
        - 🖥️ **新儀表板（Data 型 Artifact）**：https://claude.ai/artifact/FxqXJG1BiFKtkvYwUFeCWw ——使用者 11/11 要「重跑一次、產生新的 artifacts」，中途被 worker 重啟打斷，11/12 完成。做法見 §1-9 開頭。舊儀表板 DVzgsTJM7C72dvRpueAwis 保留不動。
+     - 🗣️ **11/12 使用者回覆三件事**：
+       - **MU 短期倉到價沒賣**（「沒買XD」）→ 紀律記「觸發未執行」1 筆；規則不取消，收盤還在 $770 以上，每日通知照樣提醒。
+       - **NVDA 又加碼**（使用者說附了截圖，但對話裡沒收到圖 → 已請補傳；股數、價格未確認前不改 portfolio.json）→ 等於選了 ②「允許逢低加碼」，要補一個股數上限（建議 15 股，待確認）。這筆是**核心倉加碼第 2 筆**，而且在 11/17 財報前 14 天內，兩項都記進紀律。
+       - **Finnhub 第二來源「這條路先不要走了」** → quotes.py 改 `USE_FINNHUB=False`；雲端環境的網路密鑰留著不動。
+       - 使用者說「黃董又爆新外遇」：11/12 查了英文與中文報導，**只找到 11/8 承認的同一段（對象 Megaspeed 主管 Alice Huang）**，沒找到第二段；新的是**眾議院要求 11/18（財報隔天）出席作證**，已加進行事曆。
      - 盤中數字（僅供參考）：市值約 $20,554.78、+$1,441.61（+7.54%）；半導體三檔約 74.1%（SPOT 換成 TSM，非半導體少一檔）。SPCX 約 $146.47（已在 $150 下，10/14 裁示不減，地板 $110）；MU 約 $911.90（離 $810 地板約 11%）。
      - 🔧 **sed 替換字串裡不能有 `&`**（會被換成整段比對到的文字，10/14 儀表板因此多出一段重複字）；HTML 實體（`&gt;`）的替換一律用 Python。Notion 上傳網址 `api.notion.com` 被這個環境擋（403），HTML 內嵌改用 `notion-create-attachment` 的 `content` 直接傳。
      - 🔧 **自己犯的錯（10/11 更正）**：10/09、10/10 兩版報告寫「目前沒有任何規則會讓 MU 出場」，但 MU 一直有 $810 地板。**寫「沒有規則」之前，先查 Notion 8/29〈停損停利 × 進退場 總表〉跟後面的裁示**，不能只靠 skill 裡寫到的部分。已在 Notion 頁加更正標示。
@@ -444,7 +449,7 @@ metadata:
 ### 1-12 報價自動化（11/9 新增；使用者原話：重點在報價通知自動化）
 
 - **收盤價改用腳本抓，不再靠搜尋拼湊**：`scripts/quotes.py --days 10 --out data/closes.csv`。主來源 **Yahoo Finance chart API**（免 key，環境已放行 `query1.finance.yahoo.com`；11/9 實測 8 檔 11/6 收盤跟券商截圖一模一樣）；盤中時最後一根自動標「盤中」、不算收盤。匯出 `data/closes.csv`（每檔每天一列、重跑去重），週報直接讀它，資料血緣寫「Yahoo chart API＋券商截圖」。
-- **第二來源 Finnhub**：免費 key 存在雲端環境 `wsdfex0963` 的網路密鑰（主機 `finnhub.io`、header `X-Finnhub-Token`，由代理注入，程式與對話都不碰 key）。**11/9 存好後一直回 401「Invalid API key」→ key 內容不對或還沒啟用**，待使用者在環境設定重貼；修好後腳本自動交叉驗證（Finnhub 收盤 vs Yahoo，差 ≤ 0.02 標 ✅）。
+- **第二來源 Finnhub（11/12 使用者：先不要走這條路 → `USE_FINNHUB=False` 預設關閉）**：免費 key 存在雲端環境 `wsdfex0963` 的網路密鑰（主機 `finnhub.io`、header `X-Finnhub-Token`，由代理注入，程式與對話都不碰 key）。**11/9 存好後一直回 401「Invalid API key」→ key 內容不對或還沒啟用**，待使用者在環境設定重貼；修好後腳本自動交叉驗證（Finnhub 收盤 vs Yahoo，差 ≤ 0.02 標 ✅）。
 - **到價條件**寫在腳本最上面的 `ALERTS`（目前只有 MU ≥ $770 → 賣短期倉 1 股）；有到價時結束碼 2。
 - **每日收盤檢查排程** `trig_011f6GSUZC95wzLuXFVk2Gvn`：週一到週五美東 16:23、每次開新 session（省 token，不帶這個長對話）、推播到手機；只查 Yahoo、不寫 Notion、不改檔案。排程沒帶 MCP 連接器（本來就不需要）。
 - **不用 TradingView（11/9 使用者決定：「那就不要 TradingView，改成 yahoo finance」）**：資料與通知一律以 Yahoo Finance 為主。即時到價通知請使用者在 **Yahoo 財經 App**（或券商 App）對 MU 設價格提醒（高於 $770），推播到手機；每日收盤檢查是備援。背景：TradingView 沒有公開行情 API，警報 webhook 要付費、也打不進這個 session（session 的 webhook 只收 Anthropic artifact 服務簽章過的呼叫）。
