@@ -12,8 +12,8 @@
   "kind": "todo",
   "key": "t2",
   "date_label": "",
-  "title": "NVDA：補成交截圖、訂股數上限",
-  "detail": "你選了逢低加碼（②）。這筆在 11/17 財報前 14 天內，記一筆；上限建議 15 股，等你確認",
+  "title": "NVDA：補成交截圖，想好「換執行長還抱不抱」",
+  "detail": "上限已定：市值佔比最多 15%（碰到就不再加，不會逼你賣）。核心倉沒有停損，黃仁勳如果真的下台，這是要先想好的一件事",
   "tone": "amber",
   "url": ""
  },
@@ -84,10 +84,10 @@
   "kind": "news",
   "key": "n2",
   "date_label": "",
-  "title": "NVDA：執行長承認婚外情，董事會獨立調查",
-  "detail": "11/8 內部信承認；對象是新加坡 Megaspeed 主管，美方懷疑與中國情報有關（未證實，中方否認）。輝達稱沒有機密外洩跡象。11/9–11/10 股價兩天跌 9.5%。",
+  "title": "NVDA：WSJ 報導董事會準備撤換黃仁勳，盤後跌 8.6%",
+  "detail": "11/11 紐約時報報導他與公司一位女副總有婚外關係（引述前員工，當事人都沒有證實）；數小時後 WSJ 報導董事會準備撤換他，輝達還沒宣布任何決定。11/8 他已承認另一段婚外情，董事會獨立調查中。",
   "tone": "",
-  "url": "https://aljazeera.com/news/2026/11/8/us-chipmaker-nvidia-investigates-ceo-jensen-huang-over-affair"
+  "url": "https://www.cnbc.com/2026/11/11/nvidia-jensen-huang-affair-employee.html"
  },
  {
   "kind": "news",

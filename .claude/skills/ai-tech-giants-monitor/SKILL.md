@@ -207,6 +207,9 @@ metadata:
        - **NVDA 又加碼**（使用者說附了截圖，但對話裡沒收到圖 → 已請補傳；股數、價格未確認前不改 portfolio.json）→ 等於選了 ②「允許逢低加碼」，要補一個股數上限（建議 15 股，待確認）。這筆是**核心倉加碼第 2 筆**，而且在 11/17 財報前 14 天內，兩項都記進紀律。
        - **Finnhub 第二來源「這條路先不要走了」** → quotes.py 改 `USE_FINNHUB=False`；雲端環境的網路密鑰留著不動。
        - 使用者說「黃董又爆新外遇」：11/12 查了英文與中文報導，**只找到 11/8 承認的同一段（對象 Megaspeed 主管 Alice Huang）**，沒找到第二段；新的是**眾議院要求 11/18（財報隔天）出席作證**，已加進行事曆。
+     - 🗣️ **11/12 裁示：NVDA 市值佔比上限 15%**（使用者原話「nvda 最多15%」）→ NVDA 採 ②（允許逢低加碼）；比照 §2-4，上限只擋加碼、不觸發減碼。用盤後 $158.78 算約 21 股以內（含加碼投入的錢）。新加碼那筆的截圖還是沒收到。
+       - 🔧 **自己犯的錯（11/12 更正）**：使用者說「黃董又爆新外遇」，standard 搜尋沒找到就回「只有 11/8 那段」，**其實 NYT 11/11 已報導第二段**（對象是公司一位女副總，引述前員工、當事人都沒證實），數小時後 WSJ 報導**董事會準備撤換黃仁勳**，NVDA 盤後 −8.6%（$173.73 → $158.78，Yahoo 盤後資料核對）。**規則：使用者提到「最新消息」、或要查當天到前一天的事件，直接用 extended 搜尋；沒找到時寫「我沒查到」，不要寫「沒有這回事」。**
+       - 儀表板只換了 notes 這個資料檔（新聞、待辦）；持倉等截圖。發布檔不寫未證實報導的當事人姓名。
      - 盤中數字（僅供參考）：市值約 $20,554.78、+$1,441.61（+7.54%）；半導體三檔約 74.1%（SPOT 換成 TSM，非半導體少一檔）。SPCX 約 $146.47（已在 $150 下，10/14 裁示不減，地板 $110）；MU 約 $911.90（離 $810 地板約 11%）。
      - 🔧 **sed 替換字串裡不能有 `&`**（會被換成整段比對到的文字，10/14 儀表板因此多出一段重複字）；HTML 實體（`&gt;`）的替換一律用 Python。Notion 上傳網址 `api.notion.com` 被這個環境擋（403），HTML 內嵌改用 `notion-create-attachment` 的 `content` 直接傳。
      - 🔧 **自己犯的錯（10/11 更正）**：10/09、10/10 兩版報告寫「目前沒有任何規則會讓 MU 出場」，但 MU 一直有 $810 地板。**寫「沒有規則」之前，先查 Notion 8/29〈停損停利 × 進退場 總表〉跟後面的裁示**，不能只靠 skill 裡寫到的部分。已在 Notion 頁加更正標示。
@@ -402,7 +405,7 @@ metadata:
 >                         dashboard/index.html（固定版型，數字全部從資料來；換期不用改頁面）
 > ```
 >
-> - **每期更新**：① quotes.py 更新 closes.csv；② 有交易就改 portfolio.json，改 notes.json；③ 跑 build_data.py；④ 六個 JSON 各用一次 Artifact publish（`url`＋`file_path`＋`asset: true`）上傳，拿到 `/_blob/<id>`；⑤ ArtifactData `batch`：每個 `datasets/<id>` 用 `update`（帶 `if_version`）改 `source.url`、`updated`、`edit`，頁面有改才寫 `files/index.html`；⑥ 讀 `data/users/me` 的 `check`／`runs`／`page`，`passed` 才交差；⑦ 舊附檔用 Artifact delete（`url`＋`path`＝id）清掉。
+> - **每期更新**：① quotes.py 更新 closes.csv；② 有交易就改 portfolio.json，改 notes.json；③ 跑 build_data.py；④ 六個 JSON 各用一次 Artifact publish（`url`＋`file_path`＋`asset: true`）上傳，拿到 `/_blob/<id>`；⑤ ArtifactData `batch`：每個 `datasets/<id>` 用 `update`（帶 `if_version`）改 `source.url`、`updated`、`edit`，頁面有改才寫 `files/index.html`；⑥ 讀 `data/users/me` 的 `check`／`runs`／`page`，`passed` 才交差；⑦ 舊附檔可以留著當歷史版本；要清再用 Artifact delete（`url`＋`path`＝id）。只換一個檔時，只上傳那個檔、只 update 那份 dataset。
 > - **隱私**：附檔是每個打得開頁面的人都讀得到的 → 只放股數、佔比、收盤價、總報酬；成本、均價、成交價一律不放。
 > - **先在本機看過再上傳**：scratchpad 的 harness（模擬 `dash.data`／`dash.draw`）用 Playwright 跑 400px 和 1100px，檢查沒有錯誤、沒有空白數字，**每個清單區都有內容**（11/12 抓到 notes 的分類名稱被截掉一個字，行事曆和新聞兩區整個空白）。
 
