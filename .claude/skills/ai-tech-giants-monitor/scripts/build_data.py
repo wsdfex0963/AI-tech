@@ -61,7 +61,8 @@ def main():
     status = 'done' if S.get('status') == 'sold' else 'hit' if sc >= S['target'] else 'touched' if alert.get('high', 0) >= S['target'] else 'watch'
     prog = 100 if status != 'watch' else max(0, min(100, (sc - S['cost']) / (S['target'] - S['cost']) * 100))
 
-    LW = P['last_week']; wk = MV - LW['market_value'] - sum(t['amount'] for t in trades if LW['date'] < t['date'] <= D)
+    marks = P.get('week_marks') or [P['last_week']]                    # 上一期週報的日期與市值；取 D 之前最近的一筆
+    LW = max((m for m in marks if m['date'] < D), key=lambda m: m['date']); wk = MV - LW['market_value'] - sum(t['amount'] for t in trades if LW['date'] < t['date'] <= D)
     grp = lambda g: sum(mv[p['symbol']] for p in pos if p['group'] == g) / MV * 100
     day = sum(p['shares'] * (c[p['symbol']] - c0[p['symbol']]) for p in pos)
     default_row = next(x for x in plan if x['is_default'])
@@ -81,10 +82,13 @@ def main():
     LABEL = {'green': '綠燈', 'amber': '黃燈', 'red': '紅燈'}; wk0 = px[LW['date']]
     holdings = []
     for p in sorted(pos, key=lambda p: -mv[p['symbol']]):
-        s = p['symbol']; h = NT['holdings'].get(s, {}); light = h.get('light', 'green')
+        s = p['symbol']; h = NT['holdings'].get(s, {}); light = h.get('light', 'green'); note = h.get('note', ''); cap = p.get('cap_pct')
+        if cap:                                                            # 佔比上限只擋加碼：算出離上限還能加幾股（加碼的錢也算進市值）
+            room = max(0, int((cap / (100 - cap) * (MV - mv[s]) - mv[s]) // c[s]))
+            note = (note + '。' if note else '') + f'上限 {cap}%：目前 {mv[s] / MV * 100:.1f}%，還能加約 {room} 股'
         holdings.append(dict(symbol=s, shares=p['shares'], weight_pct=round(mv[s] / MV * 100, 1), close=round(c[s], 2),
                              day_pct=round((c[s] / c0[s] - 1) * 100, 1), week_pct=round((c[s] / wk0[s] - 1) * 100, 1),
-                             light=light, light_label=LABEL[light], note=h.get('note', '')))
+                             light=light, light_label=LABEL[light], note=note))
     KIND = {'todos': 'todo', 'calendar': 'calendar', 'news': 'news'}
     notes = [dict(kind=KIND[k], key=x['key'], date_label=x.get('date_label', ''), title=x['title'], detail=x.get('detail', ''),
                   tone=x.get('tone', ''), url=x.get('url', '')) for k in ('todos', 'calendar', 'news') for x in NT.get(k, [])]

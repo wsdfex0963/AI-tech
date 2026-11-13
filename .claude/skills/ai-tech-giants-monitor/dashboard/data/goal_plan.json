@@ -2,37 +2,37 @@
  {
   "target_date": "2026-12-31",
   "label": "2026/12/31",
-  "lump_sum": 8349,
-  "monthly": 4213,
+  "lump_sum": 8979,
+  "monthly": 4528,
   "months": 2,
-  "prob_pct": 2,
+  "prob_pct": 1,
   "is_default": 0
  },
  {
   "target_date": "2027-03-31",
   "label": "2027/3/31",
-  "lump_sum": 7661,
-  "monthly": 1564,
+  "lump_sum": 8291,
+  "monthly": 1692,
   "months": 5,
-  "prob_pct": 13,
+  "prob_pct": 11,
   "is_default": 0
  },
  {
   "target_date": "2027-06-30",
   "label": "2027/6/30",
-  "lump_sum": 6982,
-  "monthly": 901,
+  "lump_sum": 7611,
+  "monthly": 982,
   "months": 8,
-  "prob_pct": 21,
+  "prob_pct": 19,
   "is_default": 1
  },
  {
   "target_date": "2027-12-31",
   "label": "2027/12/31",
-  "lump_sum": 5657,
-  "monthly": 427,
+  "lump_sum": 6286,
+  "monthly": 475,
   "months": 14,
-  "prob_pct": 31,
+  "prob_pct": 29,
   "is_default": 0
  }
 ]

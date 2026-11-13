@@ -1,46 +1,46 @@
 [
  {
-  "date": "2026-11-11",
-  "label": "現在（11/11）",
+  "date": "2026-11-13",
+  "label": "現在（11/13）",
   "is_base": 1,
-  "optimistic": 21262,
-  "neutral": 21262,
-  "pessimistic": 21262,
-  "opt_ret": 2.6,
-  "neu_ret": 2.6,
-  "pes_ret": 2.6
+  "optimistic": 20647,
+  "neutral": 20647,
+  "pessimistic": 20647,
+  "opt_ret": -0.4,
+  "neu_ret": -0.4,
+  "pes_ret": -0.4
  },
  {
   "date": "2026-12-31",
   "label": "2026/12/31",
   "is_base": 0,
-  "optimistic": 25407,
-  "neutral": 21541,
-  "pessimistic": 18289,
-  "opt_ret": 22.6,
-  "neu_ret": 3.9,
-  "pes_ret": -11.8
+  "optimistic": 24575,
+  "neutral": 20908,
+  "pessimistic": 17812,
+  "opt_ret": 18.6,
+  "neu_ret": 0.9,
+  "pes_ret": -14.1
  },
  {
   "date": "2027-03-31",
   "label": "2027/3/31",
   "is_base": 0,
-  "optimistic": 29091,
-  "neutral": 22053,
-  "pessimistic": 16782,
-  "opt_ret": 40.4,
-  "neu_ret": 6.4,
-  "pes_ret": -19.0
+  "optimistic": 28175,
+  "neutral": 21405,
+  "pessimistic": 16325,
+  "opt_ret": 35.9,
+  "neu_ret": 3.3,
+  "pes_ret": -21.2
  },
  {
   "date": "2027-06-30",
   "label": "2027/6/30",
   "is_base": 0,
-  "optimistic": 32257,
-  "neutral": 22584,
-  "pessimistic": 15912,
-  "opt_ret": 55.6,
-  "neu_ret": 9.0,
-  "pes_ret": -23.2
+  "optimistic": 31252,
+  "neutral": 21920,
+  "pessimistic": 15472,
+  "opt_ret": 50.8,
+  "neu_ret": 5.8,
+  "pes_ret": -25.3
  }
 ]

@@ -1,25 +1,133 @@
 {
-  "holdings_source": "2026-11-10 券商庫存截圖（11/9 收盤後）；成本與均價只留在這個檔，不進儀表板",
-  "positions": [
-    {"symbol": "TSM",   "shares": 22, "cost": 8428.47, "vol": 0.40, "group": "semi"},
-    {"symbol": "MU",    "shares": 5,  "cost": 4498.94, "vol": 0.55, "group": "semi"},
-    {"symbol": "NVDA",  "shares": 12, "cost": 2173.46, "vol": 0.45, "group": "semi"},
-    {"symbol": "TSLA",  "shares": 6,  "cost": 2069.38, "vol": 0.55, "group": "musk"},
-    {"symbol": "GOOGL", "shares": 6,  "cost": 1814.04, "vol": 0.30, "group": ""},
-    {"symbol": "AAPL",  "shares": 3,  "cost": 808.70,  "vol": 0.25, "group": ""},
-    {"symbol": "SPCX",  "shares": 5,  "cost": 762.85,  "vol": 0.70, "group": "musk"},
-    {"symbol": "SOXX",  "shares": 1,  "cost": 170.48,  "vol": 0.40, "group": "semi"}
+ "holdings_source": "2026-11-10 券商庫存截圖（11/9 收盤後）；成本與均價只留在這個檔，不進儀表板",
+ "positions": [
+  {
+   "symbol": "TSM",
+   "shares": 22,
+   "cost": 8428.47,
+   "vol": 0.4,
+   "group": "semi"
+  },
+  {
+   "symbol": "MU",
+   "shares": 5,
+   "cost": 4498.94,
+   "vol": 0.55,
+   "group": "semi"
+  },
+  {
+   "symbol": "NVDA",
+   "shares": 12,
+   "cost": 2173.46,
+   "vol": 0.45,
+   "group": "semi",
+   "cap_pct": 15
+  },
+  {
+   "symbol": "TSLA",
+   "shares": 6,
+   "cost": 2069.38,
+   "vol": 0.55,
+   "group": "musk"
+  },
+  {
+   "symbol": "GOOGL",
+   "shares": 6,
+   "cost": 1814.04,
+   "vol": 0.3,
+   "group": ""
+  },
+  {
+   "symbol": "AAPL",
+   "shares": 3,
+   "cost": 808.7,
+   "vol": 0.25,
+   "group": ""
+  },
+  {
+   "symbol": "SPCX",
+   "shares": 5,
+   "cost": 762.85,
+   "vol": 0.7,
+   "group": "musk"
+  },
+  {
+   "symbol": "SOXX",
+   "shares": 1,
+   "cost": 170.48,
+   "vol": 0.4,
+   "group": "semi"
+  }
+ ],
+ "goal": {
+  "target": 30000,
+  "start_date": "2026-10-28",
+  "start_mv": 21907.3,
+  "default_date": "2027-06-30"
+ },
+ "trades_since_goal_start": [
+  {
+   "date": "2026-10-29",
+   "symbol": "GOOGL",
+   "amount": 286.31
+  },
+  {
+   "date": "2026-10-29",
+   "symbol": "GOOGL",
+   "amount": 283.52
+  },
+  {
+   "date": "2026-11-05",
+   "symbol": "MU",
+   "amount": 696.3
+  },
+  {
+   "date": "2026-11-05",
+   "symbol": "SOXX",
+   "amount": -269.3
+  },
+  {
+   "date": "2026-11-09",
+   "symbol": "NVDA",
+   "amount": 177.71
+  }
+ ],
+ "short_term": {
+  "symbol": "MU",
+  "shares": 1,
+  "cost": 696.3,
+  "target": 770,
+  "status": "open"
+ },
+ "model": {
+  "neutral_annual": 0.1,
+  "dates": [
+   "2026-12-31",
+   "2027-03-31",
+   "2027-06-30"
   ],
-  "goal": {"target": 30000, "start_date": "2026-10-28", "start_mv": 21907.30, "default_date": "2027-06-30"},
-  "trades_since_goal_start": [
-    {"date": "2026-10-29", "symbol": "GOOGL", "amount": 286.31},
-    {"date": "2026-10-29", "symbol": "GOOGL", "amount": 283.52},
-    {"date": "2026-11-05", "symbol": "MU",    "amount": 696.30},
-    {"date": "2026-11-05", "symbol": "SOXX",  "amount": -269.30},
-    {"date": "2026-11-09", "symbol": "NVDA",  "amount": 177.71}
+  "goal_dates": [
+   "2026-12-31",
+   "2027-03-31",
+   "2027-06-30",
+   "2027-12-31"
   ],
-  "short_term": {"symbol": "MU", "shares": 1, "cost": 696.30, "target": 770, "status": "open"},
-  "last_week": {"date": "2026-11-06", "market_value": 19455.71},
-  "model": {"neutral_annual": 0.10, "dates": ["2026-12-31", "2027-03-31", "2027-06-30"],
-            "goal_dates": ["2026-12-31", "2027-03-31", "2027-06-30", "2027-12-31"], "monthlies": [0, 300, 500, 808, 1000]}
+  "monthlies": [
+   0,
+   300,
+   500,
+   808,
+   1000
+  ]
+ },
+ "week_marks": [
+  {
+   "date": "2026-11-06",
+   "market_value": 19455.71
+  },
+  {
+   "date": "2026-11-13",
+   "market_value": 20647.41
+  }
+ ]
 }
