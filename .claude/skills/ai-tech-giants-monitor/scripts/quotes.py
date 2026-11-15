@@ -7,7 +7,7 @@
 import argparse, csv, json, os, sys, time, urllib.request, datetime as dt
 TICKERS=['TSM','MU','NVDA','TSLA','GOOGL','AAPL','SPCX','SOXX']
 USE_FINNHUB=False   # 11/12 使用者：第二來源這條路先不要走（key 一直 401）；要恢復改 True
-ALERTS=[('MU','>=',770.0,'MU 短期倉碰 $770 → 賣 1 股（賺回 SOXX 虧損）')]   # (代號, 方向, 價位, 要做的事)
+ALERTS=[('MU','>=',820.0,'MU 碰到委託價 $820 → 賣 1 股的長效單可能成交，看成交回報')]   # 11/15 起：目標 $770 已到，使用者改掛 $820 長效賣單   # (代號, 方向, 價位, 要做的事)
 
 def get(url):
     req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})

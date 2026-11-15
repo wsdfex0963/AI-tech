@@ -102,7 +102,12 @@
   "shares": 1,
   "cost": 696.3,
   "target": 770,
-  "status": "open"
+  "status": "open",
+  "order": {
+   "price": 820,
+   "placed": "2026-11-15 23:34 台北（長效單）",
+   "status": "open"
+  }
  },
  "model": {
   "neutral_annual": 0.1,

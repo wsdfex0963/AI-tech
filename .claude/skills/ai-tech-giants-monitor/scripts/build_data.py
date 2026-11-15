@@ -58,7 +58,8 @@ def main():
 
     # 短期倉：收盤或盤中最高碰到目標價就算到價
     S = P['short_term']; sc = c[S['symbol']]; alert = NT.get('intraday', {}).get(S['symbol']) or {}
-    status = 'done' if S.get('status') == 'sold' else 'hit' if sc >= S['target'] else 'touched' if alert.get('high', 0) >= S['target'] else 'watch'
+    order = S.get('order') or {}
+    status = 'done' if S.get('status') == 'sold' else 'ordered' if order.get('status') == 'open' else 'hit' if sc >= S['target'] else 'touched' if alert.get('high', 0) >= S['target'] else 'watch'
     prog = 100 if status != 'watch' else max(0, min(100, (sc - S['cost']) / (S['target'] - S['cost']) * 100))
 
     marks = P.get('week_marks') or [P['last_week']]                    # 上一期週報的日期與市值；取 D 之前最近的一筆
@@ -77,7 +78,7 @@ def main():
         goal_market=round(MV - G['start_mv'] - new_money), goal_new_money=round(new_money),
         goal_default_label=default_row['label'], goal_default_monthly=default_row['monthly'],
         mu_status=status, mu_target=S['target'], mu_close=round(sc, 2), mu_gap_pct=round((S['target'] / sc - 1) * 100, 1),
-        mu_progress_pct=round(prog), mu_last=alert.get('last'), mu_high=alert.get('high'), mu_time=alert.get('time', ''))]
+        mu_progress_pct=round(prog), mu_order_price=order.get('price'), mu_order_gap_pct=round((order['price'] / sc - 1) * 100, 1) if order.get('price') else None, mu_last=alert.get('last'), mu_high=alert.get('high'), mu_time=alert.get('time', ''))]
 
     LABEL = {'green': '綠燈', 'amber': '黃燈', 'red': '紅燈'}; wk0 = px[LW['date']]
     holdings = []
