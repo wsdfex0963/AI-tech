@@ -3,9 +3,9 @@
   "date": "2026-11-13",
   "label": "現在（11/13）",
   "is_base": 1,
-  "optimistic": 20647,
-  "neutral": 20647,
-  "pessimistic": 20647,
+  "optimistic": 20973,
+  "neutral": 20973,
+  "pessimistic": 20973,
   "opt_ret": -0.4,
   "neu_ret": -0.4,
   "pes_ret": -0.4
@@ -14,9 +14,9 @@
   "date": "2026-12-31",
   "label": "2026/12/31",
   "is_base": 0,
-  "optimistic": 24575,
-  "neutral": 20908,
-  "pessimistic": 17812,
+  "optimistic": 24963,
+  "neutral": 21238,
+  "pessimistic": 18092,
   "opt_ret": 18.6,
   "neu_ret": 0.9,
   "pes_ret": -14.1
@@ -25,22 +25,22 @@
   "date": "2027-03-31",
   "label": "2027/3/31",
   "is_base": 0,
-  "optimistic": 28175,
-  "neutral": 21405,
-  "pessimistic": 16325,
+  "optimistic": 28620,
+  "neutral": 21743,
+  "pessimistic": 16581,
   "opt_ret": 35.9,
   "neu_ret": 3.3,
-  "pes_ret": -21.2
+  "pes_ret": -21.3
  },
  {
   "date": "2027-06-30",
   "label": "2027/6/30",
   "is_base": 0,
-  "optimistic": 31252,
-  "neutral": 21920,
-  "pessimistic": 15472,
+  "optimistic": 31746,
+  "neutral": 22266,
+  "pessimistic": 15715,
   "opt_ret": 50.8,
-  "neu_ret": 5.8,
-  "pes_ret": -25.3
+  "neu_ret": 5.7,
+  "pes_ret": -25.4
  }
 ]

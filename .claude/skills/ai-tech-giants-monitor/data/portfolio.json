@@ -17,11 +17,11 @@
   },
   {
    "symbol": "NVDA",
-   "shares": 12,
-   "cost": 2173.46,
+   "shares": 14,
+   "cost": 2503.69,
    "vol": 0.45,
    "group": "semi",
-   "cap_pct": 15
+   "cap_pct": 18
   },
   {
    "symbol": "TSLA",
@@ -90,6 +90,11 @@
    "date": "2026-11-09",
    "symbol": "NVDA",
    "amount": 177.71
+  },
+  {
+   "date": "2026-11-12",
+   "symbol": "NVDA",
+   "amount": 330.23
   }
  ],
  "short_term": {
@@ -127,7 +132,7 @@
   },
   {
    "date": "2026-11-13",
-   "market_value": 20647.41
+   "market_value": 20973.11
   }
  ]
 }

@@ -2,7 +2,7 @@
  {
   "symbol": "TSM",
   "shares": 22,
-  "weight_pct": 42.5,
+  "weight_pct": 41.8,
   "close": 398.73,
   "day_pct": -1.7,
   "week_pct": 6.2,
@@ -13,7 +13,7 @@
  {
   "symbol": "MU",
   "shares": 5,
-  "weight_pct": 18.8,
+  "weight_pct": 18.6,
   "close": 778.31,
   "day_pct": -2.5,
   "week_pct": 12.8,
@@ -24,7 +24,7 @@
  {
   "symbol": "TSLA",
   "shares": 6,
-  "weight_pct": 11.3,
+  "weight_pct": 11.2,
   "close": 390.22,
   "day_pct": -1.8,
   "week_pct": 8.9,
@@ -34,19 +34,19 @@
  },
  {
   "symbol": "NVDA",
-  "shares": 12,
-  "weight_pct": 9.5,
+  "shares": 14,
+  "weight_pct": 10.9,
   "close": 162.85,
   "day_pct": -2.0,
   "week_pct": -12.7,
   "light": "amber",
   "light_label": "黃燈",
-  "note": "11/12 黃仁勳卸任執行長，財務長代理、董事會找正式人選。11/17 盤後財報。股數未含 11/12 說的加碼（截圖待補）。上限 15%：目前 9.5%，還能加約 8 股"
+  "note": "你的理由：本益比偏低（用 Q3 預估 EPS 年化約 16.5 倍，市場在扣執行長換人的風險）。下個驗證點：11/17 盤後財報、新執行長人選。上限 18%：目前 10.9%，還能加約 11 股"
  },
  {
   "symbol": "GOOGL",
   "shares": 6,
-  "weight_pct": 8.6,
+  "weight_pct": 8.5,
   "close": 295.77,
   "day_pct": -1.0,
   "week_pct": 3.9,
@@ -57,7 +57,7 @@
  {
   "symbol": "AAPL",
   "shares": 3,
-  "weight_pct": 5.2,
+  "weight_pct": 5.1,
   "close": 356.27,
   "day_pct": 0.4,
   "week_pct": 4.1,
@@ -68,7 +68,7 @@
  {
   "symbol": "SPCX",
   "shares": 5,
-  "weight_pct": 3.4,
+  "weight_pct": 3.3,
   "close": 139.11,
   "day_pct": -0.6,
   "week_pct": 3.6,
