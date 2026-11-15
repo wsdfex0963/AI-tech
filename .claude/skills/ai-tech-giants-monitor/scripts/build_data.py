@@ -82,10 +82,13 @@ def main():
     LABEL = {'green': '綠燈', 'amber': '黃燈', 'red': '紅燈'}; wk0 = px[LW['date']]
     holdings = []
     for p in sorted(pos, key=lambda p: -mv[p['symbol']]):
-        s = p['symbol']; h = NT['holdings'].get(s, {}); light = h.get('light', 'green'); note = h.get('note', ''); cap = p.get('cap_pct')
+        s = p['symbol']; h = NT['holdings'].get(s, {}); light = h.get('light', 'green'); note = h.get('note', ''); cap = p.get('cap_pct'); cap_sh = p.get('cap_shares')
         if cap:                                                            # 佔比上限只擋加碼：算出離上限還能加幾股（加碼的錢也算進市值）
             room = max(0, int((cap / (100 - cap) * (MV - mv[s]) - mv[s]) // c[s]))
             note = (note + '。' if note else '') + f'上限 {cap}%：目前 {mv[s] / MV * 100:.1f}%，還能加約 {room} 股'
+        if cap_sh:                                                         # 股數上限：還能加幾股、加滿約佔多少（加碼的錢也算進市值）
+            room = max(0, cap_sh - p['shares']); full = cap_sh * c[s] / (MV + room * c[s]) * 100
+            note = (note + '。' if note else '') + f'上限 {cap_sh} 股：目前 {p["shares"]} 股，還能加 {room} 股（加滿約佔 {full:.1f}%）'
         holdings.append(dict(symbol=s, shares=p['shares'], weight_pct=round(mv[s] / MV * 100, 1), close=round(c[s], 2),
                              day_pct=round((c[s] / c0[s] - 1) * 100, 1), week_pct=round((c[s] / wk0[s] - 1) * 100, 1),
                              light=light, light_label=LABEL[light], note=note))
