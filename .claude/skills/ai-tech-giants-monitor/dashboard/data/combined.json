@@ -1,0 +1,110 @@
+[
+ {
+  "symbol": "2891.TW",
+  "name": "中信金",
+  "market": "台",
+  "shares": 13000,
+  "value_twd": 1023100,
+  "weight_pct": 46.1,
+  "light": "green"
+ },
+ {
+  "symbol": "TSM",
+  "name": "TSM",
+  "market": "美",
+  "shares": 22,
+  "value_twd": 288952,
+  "weight_pct": 13.0,
+  "light": "green"
+ },
+ {
+  "symbol": "0050.TW",
+  "name": "0050",
+  "market": "台",
+  "shares": 2600,
+  "value_twd": 266500,
+  "weight_pct": 12.0,
+  "light": "green"
+ },
+ {
+  "symbol": "00878.TW",
+  "name": "00878",
+  "market": "台",
+  "shares": 6000,
+  "value_twd": 201600,
+  "weight_pct": 9.1,
+  "light": "green"
+ },
+ {
+  "symbol": "MU",
+  "name": "MU",
+  "market": "美",
+  "shares": 5,
+  "value_twd": 128188,
+  "weight_pct": 5.8,
+  "light": "red"
+ },
+ {
+  "symbol": "TSLA",
+  "name": "TSLA",
+  "market": "美",
+  "shares": 6,
+  "value_twd": 77123,
+  "weight_pct": 3.5,
+  "light": "green"
+ },
+ {
+  "symbol": "NVDA",
+  "name": "NVDA",
+  "market": "美",
+  "shares": 14,
+  "value_twd": 75100,
+  "weight_pct": 3.4,
+  "light": "amber"
+ },
+ {
+  "symbol": "GOOGL",
+  "name": "GOOGL",
+  "market": "美",
+  "shares": 6,
+  "value_twd": 58456,
+  "weight_pct": 2.6,
+  "light": "amber"
+ },
+ {
+  "symbol": "00909.TW",
+  "name": "國泰數位支付",
+  "market": "台",
+  "shares": 1000,
+  "value_twd": 36300,
+  "weight_pct": 1.6,
+  "light": "green"
+ },
+ {
+  "symbol": "AAPL",
+  "name": "AAPL",
+  "market": "美",
+  "shares": 3,
+  "value_twd": 35207,
+  "weight_pct": 1.6,
+  "light": "green"
+ },
+ {
+  "symbol": "SPCX",
+  "name": "SPCX",
+  "market": "美",
+  "shares": 5,
+  "value_twd": 22911,
+  "weight_pct": 1.0,
+  "light": "green"
+ },
+ {
+  "symbol": "SOXX",
+  "name": "SOXX",
+  "market": "美",
+  "shares": 1,
+  "value_twd": 4918,
+  "weight_pct": 0.2,
+  "light": "green"
+ }
+]

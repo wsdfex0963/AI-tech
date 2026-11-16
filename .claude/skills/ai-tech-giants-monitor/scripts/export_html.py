@@ -7,7 +7,7 @@
 import argparse, datetime as dt, json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-IDS = ['summary', 'holdings', 'scenarios', 'goal_plan', 'compound', 'notes']
+IDS = ['summary', 'holdings', 'scenarios', 'goal_plan', 'compound', 'notes', 'combined']
 LIVE = 'https://claude.ai/artifact/FxqXJG1BiFKtkvYwUFeCWw'
 
 LIGHT = '''--color-bg:#fbfaf7;--color-fg:#1f1e1c;--color-fg-muted:#6b6a66;--color-panel:#f3f1ec;--color-border-line:#e2dfd8;

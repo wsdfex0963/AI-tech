@@ -139,5 +139,28 @@
    "date": "2026-11-13",
    "market_value": 20973.11
   }
- ]
+ ],
+ "tw_positions": [
+  {
+   "symbol": "2891.TW",
+   "name": "中信金",
+   "shares": 13000
+  },
+  {
+   "symbol": "0050.TW",
+   "name": "0050",
+   "shares": 2600
+  },
+  {
+   "symbol": "00878.TW",
+   "name": "00878",
+   "shares": 6000
+  },
+  {
+   "symbol": "00909.TW",
+   "name": "國泰數位支付",
+   "shares": 1000
+  }
+ ],
+ "twd_goal": 1000000
 }

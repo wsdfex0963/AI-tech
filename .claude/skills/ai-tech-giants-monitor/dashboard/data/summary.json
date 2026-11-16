@@ -31,6 +31,15 @@
   "mu_order_gap_pct": 5.4,
   "mu_last": null,
   "mu_high": null,
-  "mu_time": ""
+  "mu_time": "",
+  "fx": 32.94,
+  "total_twd": 2218354,
+  "us_twd": 690854,
+  "tw_twd": 1527500,
+  "us_share_pct": 31.1,
+  "tw_share_pct": 68.9,
+  "us_goal_twd": 1000000,
+  "us_goal_pct": 69.1,
+  "us_goal_gap_twd": 309146
  }
 ]

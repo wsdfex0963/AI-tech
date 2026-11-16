@@ -97,8 +97,20 @@ def main():
     notes = [dict(kind=KIND[k], key=x['key'], date_label=x.get('date_label', ''), title=x['title'], detail=x.get('detail', ''),
                   tone=x.get('tone', ''), url=x.get('url', '')) for k in ('todos', 'calendar', 'news') for x in NT.get(k, [])]
 
+    # 台美合併：台股與匯率取 D 當天或之前最近一筆；全部換成台幣
+    def last(sym):
+        ds = [d for d in sorted(px) if d <= D and sym in px[d]]; return px[ds[-1]][sym]
+    fx = last('TWD=X'); TW = P.get('tw_positions', []); twv = {t['symbol']: t['shares'] * last(t['symbol']) for t in TW}
+    us_twd = MV * fx; tw_twd = sum(twv.values()); ALL = us_twd + tw_twd; GT = P.get('twd_goal', 1000000)
+    combined = [dict(symbol=p['symbol'], name=p['symbol'], market='美', shares=p['shares'], value_twd=round(mv[p['symbol']] * fx),
+                     weight_pct=round(mv[p['symbol']] * fx / ALL * 100, 1), light=NT['holdings'].get(p['symbol'], {}).get('light', 'green')) for p in pos]
+    combined += [dict(symbol=t['symbol'], name=t['name'], market='台', shares=t['shares'], value_twd=round(twv[t['symbol']]),
+                      weight_pct=round(twv[t['symbol']] / ALL * 100, 1), light='green') for t in TW]
+    combined.sort(key=lambda r: -r['value_twd'])
+    summary[0].update(fx=round(fx, 2), total_twd=round(ALL), us_twd=round(us_twd), tw_twd=round(tw_twd), us_share_pct=round(us_twd / ALL * 100, 1),
+                      tw_share_pct=round(tw_twd / ALL * 100, 1), us_goal_twd=GT, us_goal_pct=round(us_twd / GT * 100, 1), us_goal_gap_twd=round(GT - us_twd))
     os.makedirs(a.out, exist_ok=True)
-    for name, rows in dict(summary=summary, holdings=holdings, scenarios=scen, goal_plan=plan, compound=comp, notes=notes).items():
+    for name, rows in dict(summary=summary, holdings=holdings, scenarios=scen, goal_plan=plan, compound=comp, notes=notes, combined=combined).items():
         json.dump(rows, open(f'{a.out}/{name}.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     s0 = summary[0]
     print(f"asof {D} MV {MV:.2f} cost {COST:.2f} ret {s0['return_pct']}% day {s0['day_change_pct']}% week {s0['week_change_pct']}% | goal {s0['goal_pct']}% gap {s0['goal_gap']} market {s0['goal_market']} new {s0['goal_new_money']} | MU {status} prog {s0['mu_progress_pct']}% gap {s0['mu_gap_pct']}%")
