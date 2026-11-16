@@ -40,6 +40,13 @@
   "tw_share_pct": 68.9,
   "us_goal_twd": 1000000,
   "us_goal_pct": 69.1,
-  "us_goal_gap_twd": 309146
+  "us_goal_gap_twd": 309146,
+  "goal2y_monthly_twd": 6230,
+  "goal2y_flat_monthly_twd": 12881,
+  "scen_label": "2027/6/30",
+  "scen_opt_twd": 1045713,
+  "scen_neu_twd": 733442,
+  "scen_pes_twd": 517652,
+  "tw_week_pct": 7.4
  }
 ]

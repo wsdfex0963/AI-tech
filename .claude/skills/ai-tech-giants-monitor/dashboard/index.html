@@ -65,21 +65,26 @@
 </header>
 <section class="pf-kpis" id="pf-kpis" aria-label="重點數字">
 <div class="pf-kpi" id="pf-kpi-all"><div class="pf-kpi-label">總資產（台幣）</div><div class="pf-kpi-value"><span data-draw="val" data-source="summary" data-field="total_twd" data-row="0" data-fmt="wan">—</span></div><div class="pf-kpi-sub">美股 <span data-draw="val" data-source="summary" data-field="us_share_pct" data-row="0" data-fmt="pct0">—</span>、台股 <span data-draw="val" data-source="summary" data-field="tw_share_pct" data-row="0" data-fmt="pct0">—</span></div></div>
-<div class="pf-kpi" id="pf-kpi-us"><div class="pf-kpi-label">美股 → 目標 <span data-draw="val" data-source="summary" data-field="us_goal_twd" data-row="0" data-fmt="wan">—</span></div><div class="pf-kpi-value"><span data-draw="val" data-source="summary" data-field="us_twd" data-row="0" data-fmt="wan">—</span></div><div class="pf-bar" data-draw="bar" data-source="summary" data-field="us_goal_pct" data-row="0"></div><div class="pf-kpi-sub"><span data-draw="val" data-source="summary" data-field="us_goal_pct" data-row="0" data-fmt="pct0">—</span>，還差 <span data-draw="val" data-source="summary" data-field="us_goal_gap_twd" data-row="0" data-fmt="wan">—</span>；本週 <span data-draw="val" data-source="summary" data-field="week_change_pct" data-row="0" data-fmt="spct1" data-tone="sign">—</span></div></div>
-<div class="pf-kpi" id="pf-kpi-tw"><div class="pf-kpi-label">台股</div><div class="pf-kpi-value"><span data-draw="val" data-source="summary" data-field="tw_twd" data-row="0" data-fmt="wan">—</span></div><div class="pf-kpi-sub">4 檔，中信金佔最大</div></div>
+<div class="pf-kpi" id="pf-kpi-us"><div class="pf-kpi-label">美股 → 目標 <span data-draw="val" data-source="summary" data-field="us_goal_twd" data-row="0" data-fmt="wan">—</span></div><div class="pf-kpi-value"><span data-draw="val" data-source="summary" data-field="us_twd" data-row="0" data-fmt="wan">—</span></div><div class="pf-bar" data-draw="bar" data-source="summary" data-field="us_goal_pct" data-row="0"></div><div class="pf-kpi-sub"><span data-draw="val" data-source="summary" data-field="us_goal_pct" data-row="0" data-fmt="pct0">—</span>，還差 <span data-draw="val" data-source="summary" data-field="us_goal_gap_twd" data-row="0" data-fmt="wan">—</span></div><div class="pf-kpi-sub">本週 <span data-draw="val" data-source="summary" data-field="week_change_pct" data-row="0" data-fmt="spct1" data-tone="sign">—</span>，總報酬 <span data-draw="val" data-source="summary" data-field="return_pct" data-row="0" data-fmt="spct1" data-tone="sign">—</span></div></div>
+<div class="pf-kpi" id="pf-kpi-tw"><div class="pf-kpi-label">台股</div><div class="pf-kpi-value"><span data-draw="val" data-source="summary" data-field="tw_twd" data-row="0" data-fmt="wan">—</span></div><div class="pf-kpi-sub">4 檔；本週 <span data-draw="val" data-source="summary" data-field="tw_week_pct" data-row="0" data-fmt="spct1" data-tone="sign">—</span></div></div>
 </section>
 <section class="pf-sec" id="pf-todo"><h2 class="pf-h2">要做的事</h2><ul class="pf-list" data-draw="todos" data-source="notes"></ul></section>
+<section class="pf-sec" id="pf-watch"><h2 class="pf-h2">要注意的個股</h2><ul class="pf-list" data-draw="watch" data-source="holdings"></ul></section>
 <section class="pf-sec" id="pf-holdings"><h2 class="pf-h2">持股</h2>
 <div class="pf-scroll"><table class="pf-table" data-source="combined" data-row-key="symbol">
-<thead><tr><th data-field="name">個股</th><th data-field="shares" class="pf-num">股數</th><th data-field="value_twd" class="pf-num">市值</th><th data-field="weight_pct" class="pf-num">佔比</th></tr></thead>
+<thead><tr><th data-field="name">個股</th><th data-field="shares" class="pf-num">股數</th><th data-field="value_twd" class="pf-num">市值</th><th data-field="weight_pct" class="pf-num">佔比</th><th data-field="week_pct" class="pf-num">本週</th></tr></thead>
 <tbody data-draw="combined"></tbody></table></div>
 <p class="pf-muted">市值是台幣。圓點：紅＝今天要動，黃＝要留意，綠＝沒事。</p></section>
+<section class="pf-sec" id="pf-goal"><h2 class="pf-h2">美股兩年到 <span data-draw="val" data-source="summary" data-field="us_goal_twd" data-row="0" data-fmt="wan">—</span></h2>
+<p class="pf-muted">每年賺 10% 的話，每月再投約 <span data-draw="val" data-source="summary" data-field="goal2y_monthly_twd" data-row="0" data-fmt="twd">—</span>；行情持平要 <span data-draw="val" data-source="summary" data-field="goal2y_flat_monthly_twd" data-row="0" data-fmt="twd">—</span>。</p>
+<p class="pf-muted">抱著不動到 <span data-draw="val" data-source="summary" data-field="scen_label" data-row="0" data-fmt="">—</span> 的試算：樂觀 <span data-draw="val" data-source="summary" data-field="scen_opt_twd" data-row="0" data-fmt="wan">—</span>／中性 <span data-draw="val" data-source="summary" data-field="scen_neu_twd" data-row="0" data-fmt="wan">—</span>／悲觀 <span data-draw="val" data-source="summary" data-field="scen_pes_twd" data-row="0" data-fmt="wan">—</span>。是試算，不是預測。</p></section>
+<section class="pf-sec" id="pf-news"><h2 class="pf-h2">這期發生的事</h2><ul class="pf-list" data-draw="news" data-source="notes"></ul></section>
 <section class="pf-sec" id="pf-calendar"><h2 class="pf-h2">接下來</h2><ul class="pf-list" data-draw="calendar" data-source="notes"></ul></section>
 <p class="pf-foot">收盤價與匯率：Yahoo Finance；股數：券商截圖與你的回報。不含成本與均價。不是投資建議。</p>
 </div>
 <script>
 const wan = (v) => d3.format(',.1f')(v / 1e4) + ' 萬';
-const F = { usd0: d3.format('$,.0f'), usd2: d3.format('$,.2f'), int: d3.format(',d'), n2: d3.format('.2f'), wan,
+const F = { twd: (v) => d3.format(',.0f')(Math.round(v / 100) * 100) + ' 元', usd0: d3.format('$,.0f'), usd2: d3.format('$,.2f'), int: d3.format(',d'), n2: d3.format('.2f'), wan,
   pct0: (v) => d3.format('.0f')(v) + '%', pct1: (v) => d3.format('.1f')(v) + '%', spct1: (v) => d3.format('+.1f')(v) + '%' };
 const rowsOf = (id) => { const s = dash.data(id); return s.status === 'ok' && Array.isArray(s.data) ? s.data : null; };
 const node = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -107,7 +112,8 @@ dash.draw('combined', (tb) => {
     const c4 = node('td', 'pf-num'), bar = node('span', 'pf-wbar'), fill = node('i');
     fill.style.width = Math.max(0, Math.min(100, +r.weight_pct)) + '%'; fill.style.background = dash.colors[0]; bar.append(fill);
     c4.append(bar, document.createTextNode(F.pct1(+r.weight_pct)));
-    tr.append(c1, node('td', 'pf-num', F.int(+r.shares)), node('td', 'pf-num', wan(+r.value_twd)), c4); return tr;
+    const c5 = node('td', 'pf-num', F.spct1(+r.week_pct)); c5.classList.toggle('pf-ok', +r.week_pct > 0); c5.classList.toggle('pf-bad', +r.week_pct < 0);
+    tr.append(c1, node('td', 'pf-num', F.int(+r.shares)), node('td', 'pf-num', wan(+r.value_twd)), c4, c5); return tr;
   }));
 });
 const list = (name, kind, max, build) => dash.draw(name, (ul) => { ul.replaceChildren(...(rowsOf('notes') || []).filter((r) => r.kind === kind).slice(0, max).map(build)); });
@@ -115,7 +121,16 @@ list('todos', 'todo', 3, (r) => {
   const li = node('li'), top = node('div', 'pf-row'), w = 'key=' + r.key;
   top.append(node('i', 'pf-dot pf-' + (r.tone || 'green')), mark(node('b', null, r.title), 'notes', 'title', w)); li.append(top); return li;
 });
-list('calendar', 'calendar', 3, (r) => {
+dash.draw('watch', (ul) => {
+  const O = { red: 0, amber: 1 }, rows = (rowsOf('holdings') || []).filter((r) => r.light !== 'green').sort((a, b) => O[a.light] - O[b.light]);
+  ul.replaceChildren(...rows.map((r) => { const li = node('li'), top = node('div', 'pf-row'), w = 'symbol=' + r.symbol;
+    top.append(node('i', 'pf-dot pf-' + r.light), mark(node('b', null, r.symbol), 'holdings', 'symbol', w)); li.append(top, mark(node('span', 'pf-muted', r.note), 'holdings', 'note', w)); return li; }));
+});
+list('news', 'news', 3, (r) => {
+  const li = node('li'), w = 'key=' + r.key, safe = /^https:\/\//.test(r.url || '');
+  const t = mark(node(safe ? 'a' : 'b', 'pf-link', r.title), 'notes', 'title', w); if (safe) { t.href = r.url; t.target = '_blank'; t.rel = 'noopener'; } li.append(t); return li;
+});
+list('calendar', 'calendar', 5, (r) => {
   const li = node('li'), top = node('div', 'pf-row'), w = 'key=' + r.key;
   top.append(mark(node('span', 'pf-date', r.date_label), 'notes', 'date_label', w), mark(node('b', null, r.title), 'notes', 'title', w)); li.append(top); return li;
 });

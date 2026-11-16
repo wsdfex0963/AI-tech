@@ -98,17 +98,22 @@ def main():
                   tone=x.get('tone', ''), url=x.get('url', '')) for k in ('todos', 'calendar', 'news') for x in NT.get(k, [])]
 
     # 台美合併：台股與匯率取 D 當天或之前最近一筆；全部換成台幣
-    def last(sym):
-        ds = [d for d in sorted(px) if d <= D and sym in px[d]]; return px[ds[-1]][sym]
+    def last(sym, on=None):
+        ds = [d for d in sorted(px) if d <= (on or D) and sym in px[d]]; return px[ds[-1]][sym]
+    wkp = lambda sym: round((last(sym) / last(sym, LW['date']) - 1) * 100, 1)
     fx = last('TWD=X'); TW = P.get('tw_positions', []); twv = {t['symbol']: t['shares'] * last(t['symbol']) for t in TW}
     us_twd = MV * fx; tw_twd = sum(twv.values()); ALL = us_twd + tw_twd; GT = P.get('twd_goal', 1000000)
     combined = [dict(symbol=p['symbol'], name=p['symbol'], market='美', shares=p['shares'], value_twd=round(mv[p['symbol']] * fx),
-                     weight_pct=round(mv[p['symbol']] * fx / ALL * 100, 1), light=NT['holdings'].get(p['symbol'], {}).get('light', 'green')) for p in pos]
+                     weight_pct=round(mv[p['symbol']] * fx / ALL * 100, 1), week_pct=wkp(p['symbol']), light=NT['holdings'].get(p['symbol'], {}).get('light', 'green')) for p in pos]
     combined += [dict(symbol=t['symbol'], name=t['name'], market='台', shares=t['shares'], value_twd=round(twv[t['symbol']]),
-                      weight_pct=round(twv[t['symbol']] / ALL * 100, 1), light='green') for t in TW]
+                      weight_pct=round(twv[t['symbol']] / ALL * 100, 1), week_pct=wkp(t['symbol']), light='green') for t in TW]
     combined.sort(key=lambda r: -r['value_twd'])
     summary[0].update(fx=round(fx, 2), total_twd=round(ALL), us_twd=round(us_twd), tw_twd=round(tw_twd), us_share_pct=round(us_twd / ALL * 100, 1),
                       tw_share_pct=round(tw_twd / ALL * 100, 1), us_goal_twd=GT, us_goal_pct=round(us_twd / GT * 100, 1), us_goal_gap_twd=round(GT - us_twd))
+    r24 = (1 + M['neutral_annual']) ** (1 / 12) - 1; need = GT - us_twd * (1 + M['neutral_annual']) ** 2   # 兩年到目標：中性每年 10%，每月月底投入
+    summary[0].update(goal2y_monthly_twd=max(0, round(need / (((1 + r24) ** 24 - 1) / r24))), goal2y_flat_monthly_twd=max(0, round((GT - us_twd) / 24)),
+                      scen_label=scen[-1]['label'], scen_opt_twd=round(scen[-1]['optimistic'] * fx), scen_neu_twd=round(scen[-1]['neutral'] * fx), scen_pes_twd=round(scen[-1]['pessimistic'] * fx),
+                      tw_week_pct=round(sum(twv[t['symbol']] * (1 - 1 / (1 + wkp(t['symbol']) / 100)) for t in TW) / (tw_twd - sum(twv[t['symbol']] * (1 - 1 / (1 + wkp(t['symbol']) / 100)) for t in TW)) * 100, 1))
     os.makedirs(a.out, exist_ok=True)
     for name, rows in dict(summary=summary, holdings=holdings, scenarios=scen, goal_plan=plan, compound=comp, notes=notes, combined=combined).items():
         json.dump(rows, open(f'{a.out}/{name}.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

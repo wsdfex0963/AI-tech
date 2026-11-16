@@ -6,6 +6,7 @@
   "shares": 13000,
   "value_twd": 1023100,
   "weight_pct": 46.1,
+  "week_pct": 7.2,
   "light": "green"
  },
  {
@@ -15,6 +16,7 @@
   "shares": 22,
   "value_twd": 288952,
   "weight_pct": 13.0,
+  "week_pct": 6.2,
   "light": "green"
  },
  {
@@ -24,6 +26,7 @@
   "shares": 2600,
   "value_twd": 266500,
   "weight_pct": 12.0,
+  "week_pct": 10.8,
   "light": "green"
  },
  {
@@ -33,6 +36,7 @@
   "shares": 6000,
   "value_twd": 201600,
   "weight_pct": 9.1,
+  "week_pct": 5.0,
   "light": "green"
  },
  {
@@ -42,6 +46,7 @@
   "shares": 5,
   "value_twd": 128188,
   "weight_pct": 5.8,
+  "week_pct": 12.8,
   "light": "red"
  },
  {
@@ -51,6 +56,7 @@
   "shares": 6,
   "value_twd": 77123,
   "weight_pct": 3.5,
+  "week_pct": 8.9,
   "light": "green"
  },
  {
@@ -60,6 +66,7 @@
   "shares": 14,
   "value_twd": 75100,
   "weight_pct": 3.4,
+  "week_pct": -12.7,
   "light": "amber"
  },
  {
@@ -69,6 +76,7 @@
   "shares": 6,
   "value_twd": 58456,
   "weight_pct": 2.6,
+  "week_pct": 3.9,
   "light": "amber"
  },
  {
@@ -78,6 +86,7 @@
   "shares": 1000,
   "value_twd": 36300,
   "weight_pct": 1.6,
+  "week_pct": 4.1,
   "light": "green"
  },
  {
@@ -87,6 +96,7 @@
   "shares": 3,
   "value_twd": 35207,
   "weight_pct": 1.6,
+  "week_pct": 4.1,
   "light": "green"
  },
  {
@@ -96,6 +106,7 @@
   "shares": 5,
   "value_twd": 22911,
   "weight_pct": 1.0,
+  "week_pct": 3.6,
   "light": "green"
  },
  {
@@ -105,6 +116,7 @@
   "shares": 1,
   "value_twd": 4918,
   "weight_pct": 0.2,
+  "week_pct": 9.4,
   "light": "green"
  }
 ]
