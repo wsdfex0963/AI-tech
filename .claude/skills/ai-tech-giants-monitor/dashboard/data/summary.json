@@ -47,6 +47,11 @@
   "scen_opt_twd": 1045713,
   "scen_neu_twd": 733442,
   "scen_pes_twd": 517652,
-  "tw_week_pct": 7.4
+  "tw_week_pct": 7.4,
+  "plan_monthly_twd": 20000,
+  "plan_reach_neu": "2027/10",
+  "plan_reach_flat": "2028/2",
+  "plan_630_twd": 900713,
+  "plan_630_gap_twd": 99287
  }
 ]

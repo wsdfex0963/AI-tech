@@ -114,6 +114,19 @@ def main():
     summary[0].update(goal2y_monthly_twd=max(0, round(need / (((1 + r24) ** 24 - 1) / r24))), goal2y_flat_monthly_twd=max(0, round((GT - us_twd) / 24)),
                       scen_label=scen[-1]['label'], scen_opt_twd=round(scen[-1]['optimistic'] * fx), scen_neu_twd=round(scen[-1]['neutral'] * fx), scen_pes_twd=round(scen[-1]['pessimistic'] * fx),
                       tw_week_pct=round(sum(twv[t['symbol']] * (1 - 1 / (1 + wkp(t['symbol']) / 100)) for t in TW) / (tw_twd - sum(twv[t['symbol']] * (1 - 1 / (1 + wkp(t['symbol']) / 100)) for t in TW)) * 100, 1))
+    PM = P.get('plan_monthly_twd', 0)                                          # 使用者定的每月投入（台幣，月底投）
+    def reach(rate):
+        v, y, m = us_twd, base.year, base.month
+        for _ in range(120):
+            v = v * (1 + rate) ** (1 / 12) + PM; 
+            if v >= GT: return f'{y}/{m}'
+            y, m = (y + 1, 1) if m == 12 else (y, m + 1)
+        return '十年以上'
+    def at630(rate):
+        v, y, m = us_twd, base.year, base.month
+        while (y, m) <= (2027, 6): v = v * (1 + rate) ** (1 / 12) + PM; y, m = (y + 1, 1) if m == 12 else (y, m + 1)
+        return v
+    summary[0].update(plan_monthly_twd=PM, plan_reach_neu=reach(M['neutral_annual']), plan_reach_flat=reach(0), plan_630_twd=round(at630(M['neutral_annual'])), plan_630_gap_twd=max(0, round(GT - at630(M['neutral_annual']))))
     os.makedirs(a.out, exist_ok=True)
     for name, rows in dict(summary=summary, holdings=holdings, scenarios=scen, goal_plan=plan, compound=comp, notes=notes, combined=combined).items():
         json.dump(rows, open(f'{a.out}/{name}.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
