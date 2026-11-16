@@ -127,8 +127,18 @@ def main():
         while (y, m) <= (2027, 6): v = v * (1 + rate) ** (1 / 12) + PM; y, m = (y + 1, 1) if m == 12 else (y, m + 1)
         return v
     summary[0].update(plan_monthly_twd=PM, plan_reach_neu=reach(M['neutral_annual']), plan_reach_flat=reach(0), plan_630_twd=round(at630(M['neutral_annual'])), plan_630_gap_twd=max(0, round(GT - at630(M['neutral_annual']))))
+    # 走勢：美股部位（台幣）＋每月月底投 PM，投入的錢跟著同一條情境路徑走；到 path_end
+    import calendar
+    ends = []; y, m = base.year, base.month
+    while (y, m) <= tuple(P.get('path_end', [2027, 12])):
+        ends.append(f'{y}-{m:02d}-{calendar.monthrange(y, m)[1]:02d}'); y, m = (y + 1, 1) if m == 12 else (y, m + 1)
+    KEY = set(P.get('path_keys', ['2027-06-30', '2027-12-31']))
+    def pv(d, z): return total(d, z) * fx + sum(PM * total(d, z) / total(s, z) for s in ends if s <= d)
+    path = [dict(date=D, label=f'現在（{md(D)}）', is_key=0, optimistic=round(us_twd), neutral=round(us_twd), pessimistic=round(us_twd), invested=0)]
+    path += [dict(date=d, label=ymd(d), is_key=1 if d in KEY else 0, optimistic=round(pv(d, 1)), neutral=round(pv(d, 0)), pessimistic=round(pv(d, -1)),
+                  invested=PM * sum(1 for s in ends if s <= d)) for d in ends if d > D]
     os.makedirs(a.out, exist_ok=True)
-    for name, rows in dict(summary=summary, holdings=holdings, scenarios=scen, goal_plan=plan, compound=comp, notes=notes, combined=combined).items():
+    for name, rows in dict(summary=summary, holdings=holdings, scenarios=scen, goal_plan=plan, compound=comp, notes=notes, combined=combined, path=path).items():
         json.dump(rows, open(f'{a.out}/{name}.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     s0 = summary[0]
     print(f"asof {D} MV {MV:.2f} cost {COST:.2f} ret {s0['return_pct']}% day {s0['day_change_pct']}% week {s0['week_change_pct']}% | goal {s0['goal_pct']}% gap {s0['goal_gap']} market {s0['goal_market']} new {s0['goal_new_money']} | MU {status} prog {s0['mu_progress_pct']}% gap {s0['mu_gap_pct']}%")

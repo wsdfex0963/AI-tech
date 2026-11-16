@@ -84,6 +84,11 @@
 <section class="pf-sec" id="pf-goal"><h2 class="pf-h2">美股兩年到 <span data-draw="val" data-source="summary" data-field="us_goal_twd" data-row="0" data-fmt="wan">—</span></h2>
 <p class="pf-muted">計畫：每月從薪水投 <span data-draw="val" data-source="summary" data-field="plan_monthly_twd" data-row="0" data-fmt="twd">—</span>。每年賺 10% 的話 <span data-draw="val" data-source="summary" data-field="plan_reach_neu" data-row="0" data-fmt="">—</span> 達標，行情持平 <span data-draw="val" data-source="summary" data-field="plan_reach_flat" data-row="0" data-fmt="">—</span>；到 2027/6/30 約 <span data-draw="val" data-source="summary" data-field="plan_630_twd" data-row="0" data-fmt="wan">—</span>，還差 <span data-draw="val" data-source="summary" data-field="plan_630_gap_twd" data-row="0" data-fmt="wan">—</span>。</p>
 <p class="pf-muted">抱著不動到 <span data-draw="val" data-source="summary" data-field="scen_label" data-row="0" data-fmt="">—</span> 的試算：樂觀 <span data-draw="val" data-source="summary" data-field="scen_opt_twd" data-row="0" data-fmt="wan">—</span>／中性 <span data-draw="val" data-source="summary" data-field="scen_neu_twd" data-row="0" data-fmt="wan">—</span>／悲觀 <span data-draw="val" data-source="summary" data-field="scen_pes_twd" data-row="0" data-fmt="wan">—</span>。是試算，不是預測。</p></section>
+<section class="pf-sec" id="pf-path"><h2 class="pf-h2">美股走勢試算（每月投 <span data-draw="val" data-source="summary" data-field="plan_monthly_twd" data-row="0" data-fmt="twd">—</span>）</h2>
+<ul class="pf-legend" id="pf-legend"><li><i class="pf-sw" data-pf-sw="1"></i><span data-pf-name="o">樂觀</span></li><li><i class="pf-sw" data-pf-sw="0"></i><span data-pf-name="n">中性</span></li><li><i class="pf-sw" data-pf-sw="2"></i><span data-pf-name="p">悲觀</span></li><li><i class="pf-sw pf-sw-ref"></i>虛線是目標 <span data-draw="val" data-source="summary" data-field="us_goal_twd" data-row="0" data-fmt="wan">—</span></li></ul>
+<div class="pf-chart" id="pf-chart" data-draw="path_chart" data-source="path" data-label="樂觀、中性、悲觀三種情境下，美股部位加上每月投入到 2027 年底的走勢">—</div>
+<div class="pf-scroll"><table class="pf-table" id="pf-path-table"><thead><tr><th>日期</th><th class="pf-num">樂觀</th><th class="pf-num">中性</th><th class="pf-num">悲觀</th><th class="pf-num">累計投入</th></tr></thead><tbody data-draw="path_rows" data-source="path"></tbody></table></div>
+<p class="pf-muted">台幣，含每月投入的錢。中性是每年約 10%，樂觀與悲觀是上下一個標準差。是試算，不是預測。</p></section>
 <section class="pf-sec" id="pf-news"><h2 class="pf-h2">這期發生的事</h2><ul class="pf-list" data-draw="news" data-source="notes"></ul></section>
 <section class="pf-sec" id="pf-calendar"><h2 class="pf-h2">接下來</h2><ul class="pf-list" data-draw="calendar" data-source="notes"></ul></section>
 <p class="pf-foot">收盤價與匯率：Yahoo Finance；股數：券商截圖與你的回報。不含成本與均價。不是投資建議。</p>
@@ -97,6 +102,7 @@ const node = (tag, cls, text) => { const e = document.createElement(tag); if (cl
 const mark = (e, id, field, where) => { e.dataset.source = id; e.dataset.field = field; if (where) e.dataset.where = where; return e; };
 dash.onData(() => {
   const s = rowsOf('summary'), st = s && s[0] ? s[0].mu_status : null;
+  document.querySelectorAll('[data-pf-sw]').forEach((e) => { e.style.background = dash.colors[+e.dataset.pfSw] || ''; });
   document.querySelectorAll('[data-pf-when]').forEach((e) => { e.hidden = e.dataset.pfWhen.split(' ').indexOf(st) < 0; });
 });
 dash.draw('val', (e) => {
@@ -121,6 +127,48 @@ dash.draw('combined', (tb) => {
     c4.append(bar, document.createTextNode(F.pct1(+r.weight_pct)));
 tr.append(c1, node('td', 'pf-num', F.int(+r.shares)), node('td', 'pf-num', wan(+r.value_twd)), c4); return tr;
   }));
+});
+dash.draw('path_rows', (tb) => {
+  const rows = rowsOf('path'); if (!rows) { tb.replaceChildren(); return; }
+  tb.replaceChildren(...rows.filter((r) => +r.is_key === 1).map((r) => { const tr = node('tr'), w = 'date=' + r.date;
+    tr.append(mark(node('td', null, r.label), 'path', 'label', w), ...['optimistic', 'neutral', 'pessimistic', 'invested'].map((k) => mark(node('td', 'pf-num', wan(+r[k])), 'path', k, w))); return tr; }));
+});
+dash.draw('path_chart', (box) => {
+  const raw = rowsOf('path'); if (!raw || !raw.length) { box.replaceChildren(document.createTextNode('—')); return; }
+  const sum = rowsOf('summary'), target = sum && sum[0] ? +sum[0].us_goal_twd : null;
+  const parse = d3.utcParse('%Y-%m-%d'), fd = d3.utcFormat('%Y/%-m/%-d'), fs = d3.utcFormat('%-m/%-d');
+  const rows = raw.map((r) => ({ t: parse(r.date), label: r.label, key: +r.is_key === 1, o: +r.optimistic, n: +r.neutral, p: +r.pessimistic }));
+  const scope = box.closest('section') || document, name = (k) => { const e = scope.querySelector('[data-pf-name="' + k + '"]'); return e ? e.textContent : ''; };
+  const S = [{ k: 'o', c: dash.colors[1] }, { k: 'n', c: dash.colors[0] }, { k: 'p', c: dash.colors[2] }];
+  const W = Math.max(280, box.clientWidth || 640), H = Math.round(Math.max(230, Math.min(330, W * 0.55)));
+  box.replaceChildren();
+  const svg = d3.select(box).append('svg').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', box.dataset.label || '');
+  const meas = (txt, cls) => { const t = svg.append('text').attr('class', cls).text(txt); const w = t.node().getComputedTextLength() || txt.length * 7; t.remove(); return w; };
+  const last = rows[rows.length - 1], vals = rows.flatMap((d) => [d.o, d.n, d.p]).concat(target ? [target] : []);
+  const y = d3.scaleLinear().domain([d3.min(vals) * 0.94, d3.max(vals) * 1.04]).nice(4), yt = y.ticks(4), tf = (v) => d3.format(',.0f')(v / 1e4) + ' 萬';
+  const mL = Math.ceil(d3.max(yt, (v) => meas(tf(v), 'pf-tick'))) + 10, mR = Math.ceil(d3.max(S, (s) => meas(wan(last[s.k]), 'pf-end'))) + 14, mT = 10, mB = 26;
+  y.range([H - mB, mT]); const x = d3.scaleUtc().domain(d3.extent(rows, (d) => d.t)).range([mL, W - mR]), g = svg.append('g');
+  yt.forEach((v) => { g.append('line').attr('x1', mL).attr('x2', W - mR).attr('y1', y(v)).attr('y2', y(v)).style('stroke', 'var(--cds-chart-grid)');
+    g.append('text').attr('class', 'pf-tick').attr('x', mL - 6).attr('y', y(v)).attr('dy', '0.32em').attr('text-anchor', 'end').text(tf(v)); });
+  const ticks = [rows[0]].concat(rows.filter((d) => d.key));
+  ticks.forEach((d, i) => { g.append('text').attr('class', 'pf-tick').attr('x', x(d.t)).attr('y', H - 6).attr('text-anchor', i === 0 ? 'start' : i === ticks.length - 1 ? 'end' : 'middle').text(i === 0 ? fs(d.t) : fd(d.t));
+    if (i > 0 && i < ticks.length - 1) g.append('line').attr('x1', x(d.t)).attr('x2', x(d.t)).attr('y1', mT).attr('y2', H - mB).style('stroke', 'var(--cds-chart-grid)'); });
+  if (target != null) g.append('line').attr('x1', mL).attr('x2', W - mR).attr('y1', y(target)).attr('y2', y(target)).style('stroke', 'var(--cds-chart-reference)').style('stroke-dasharray', '4 4');
+  const guide = g.append('line').attr('y1', mT).attr('y2', H - mB).style('stroke', 'var(--cds-chart-axis)').style('display', 'none');
+  S.forEach((s) => { g.append('path').attr('fill', 'none').attr('d', d3.line().x((d) => x(d.t)).y((d) => y(d[s.k]))(rows)).style('stroke', s.c).style('stroke-width', 2);
+    rows.filter((d) => d.key).forEach((d) => g.append('circle').attr('r', 3).attr('cx', x(d.t)).attr('cy', y(d[s.k])).style('fill', s.c)); });
+  g.append('circle').attr('r', 3.5).attr('cx', x(rows[0].t)).attr('cy', y(rows[0].n)).style('fill', 'var(--color-fg)');
+  const ends = S.map((s) => ({ s, y: y(last[s.k]) })).sort((a, b) => a.y - b.y);
+  for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 14) ends[i].y = ends[i - 1].y + 14;
+  ends.forEach((e) => g.append('text').attr('class', 'pf-end').attr('x', W - mR + 8).attr('y', e.y).attr('dy', '0.32em').text(wan(last[e.s.k])));
+  const tip = node('div', 'pf-tip'); tip.hidden = true; box.append(tip);
+  const show = (ev) => { const mx = d3.pointer(ev, svg.node())[0], d = d3.least(rows, (r) => Math.abs(x(r.t) - mx));
+    guide.attr('x1', x(d.t)).attr('x2', x(d.t)).style('display', null);
+    tip.replaceChildren(node('b', null, d.label), ...S.map((s) => { const row = node('div', 'pf-tip-row'), sw = node('i', 'pf-sw'); sw.style.background = s.c;
+      row.append(sw, node('span', null, name(s.k)), node('span', 'pf-tip-v', wan(d[s.k]))); return row; }));
+    tip.hidden = false; const k = (box.clientWidth || W) / W;
+    tip.style.left = Math.max(0, Math.min(x(d.t) * k + 10, (box.clientWidth || W) - tip.offsetWidth - 2)) + 'px'; tip.style.top = (mT * k + 4) + 'px'; };
+  svg.on('pointermove', show).on('pointerdown', show).on('pointerleave', () => { tip.hidden = true; guide.style('display', 'none'); });
 });
 const list = (name, kind, max, build) => dash.draw(name, (ul) => { ul.replaceChildren(...(rowsOf('notes') || []).filter((r) => r.kind === kind).slice(0, max).map(build)); });
 list('todos', 'todo', 3, (r) => {
