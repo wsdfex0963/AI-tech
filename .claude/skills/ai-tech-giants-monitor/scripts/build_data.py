@@ -108,6 +108,9 @@ def main():
     combined += [dict(symbol=t['symbol'], name=t['name'], market='台', shares=t['shares'], value_twd=round(twv[t['symbol']]),
                       weight_pct=round(twv[t['symbol']] / ALL * 100, 1), week_pct=wkp(t['symbol']), light='green') for t in TW]
     combined.sort(key=lambda r: -r['value_twd'])
+    tw_cost = sum(t.get('cost', 0) for t in TW)
+    summary[0].update(tw_n=len(TW), tw_pnl=round(tw_twd - tw_cost) if tw_cost else None, tw_return_pct=round((tw_twd / tw_cost - 1) * 100, 1) if tw_cost else None,
+                      headline=NT.get('headline', ''))
     summary[0].update(fx=round(fx, 2), total_twd=round(ALL), us_twd=round(us_twd), tw_twd=round(tw_twd), us_share_pct=round(us_twd / ALL * 100, 1),
                       tw_share_pct=round(tw_twd / ALL * 100, 1), us_goal_twd=GT, us_goal_pct=round(us_twd / GT * 100, 1), us_goal_gap_twd=round(GT - us_twd))
     r24 = (1 + M['neutral_annual']) ** (1 / 12) - 1; need = GT - us_twd * (1 + M['neutral_annual']) ** 2   # 兩年到目標：中性每年 10%，每月月底投入
@@ -137,6 +140,8 @@ def main():
     path = [dict(date=D, label=f'現在（{md(D)}）', is_key=0, optimistic=round(us_twd), neutral=round(us_twd), pessimistic=round(us_twd), invested=0)]
     path += [dict(date=d, label=ymd(d), is_key=1 if d in KEY else 0, optimistic=round(pv(d, 1)), neutral=round(pv(d, 0)), pessimistic=round(pv(d, -1)),
                   invested=PM * sum(1 for s in ends if s <= d)) for d in ends if d > D]
+    k630 = next((r for r in path if r['date'] == '2027-06-30'), None)                 # 文字與走勢圖用同一份數字
+    if k630: summary[0].update(plan_630_twd=k630['neutral'], plan_630_gap_twd=max(0, GT - k630['neutral']))
     os.makedirs(a.out, exist_ok=True)
     for name, rows in dict(summary=summary, holdings=holdings, scenarios=scen, goal_plan=plan, compound=comp, notes=notes, combined=combined, path=path).items():
         json.dump(rows, open(f'{a.out}/{name}.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

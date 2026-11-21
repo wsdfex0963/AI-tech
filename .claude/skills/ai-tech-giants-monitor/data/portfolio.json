@@ -3,10 +3,14 @@
  "positions": [
   {
    "symbol": "TSM",
-   "shares": 22,
-   "cost": 8428.47,
+   "shares": 25,
+   "cost": 9065.55,
    "vol": 0.4,
-   "group": "semi"
+   "group": "semi",
+   "accounts": {
+    "永豐": 22,
+    "中信": 3
+   }
   },
   {
    "symbol": "MU",
@@ -17,11 +21,15 @@
   },
   {
    "symbol": "NVDA",
-   "shares": 14,
-   "cost": 2503.69,
+   "shares": 15,
+   "cost": 2681.87,
    "vol": 0.45,
    "group": "semi",
-   "cap_shares": 18
+   "cap_shares": 18,
+   "accounts": {
+    "永豐": 14,
+    "中信": 1
+   }
   },
   {
    "symbol": "TSLA",
@@ -62,8 +70,9 @@
  "goal": {
   "target": 30000,
   "start_date": "2026-10-28",
-  "start_mv": 21907.3,
-  "default_date": "2027-06-30"
+  "start_mv": 23441.21,
+  "default_date": "2027-06-30",
+  "start_adjusted": "11/21 加入中信帳戶 TSM 3、NVDA 1（用 2026-10-28 收盤）"
  },
  "trades_since_goal_start": [
   {
@@ -137,29 +146,48 @@
   },
   {
    "date": "2026-11-13",
-   "market_value": 20973.11
+   "market_value": 22332.15
+  },
+  {
+   "date": "2026-11-20",
+   "market_value": 18279.94
   }
  ],
  "tw_positions": [
   {
    "symbol": "2891.TW",
    "name": "中信金",
-   "shares": 13000
+   "shares": 13000,
+   "cost": 313245,
+   "account": "中信"
   },
   {
    "symbol": "0050.TW",
    "name": "0050",
-   "shares": 2600
+   "shares": 2600,
+   "cost": 222681,
+   "account": "永豐"
   },
   {
    "symbol": "00878.TW",
    "name": "00878",
-   "shares": 6000
+   "shares": 6000,
+   "cost": 118699,
+   "account": "中信"
+  },
+  {
+   "symbol": "2890.TW",
+   "name": "永豐金",
+   "shares": 3000,
+   "cost": 105450,
+   "account": "永豐"
   },
   {
    "symbol": "00909.TW",
    "name": "國泰數位支付",
-   "shares": 1000
+   "shares": 1000,
+   "cost": 35815,
+   "account": "中信"
   }
  ],
  "twd_goal": 1000000,

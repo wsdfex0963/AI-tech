@@ -6,7 +6,7 @@
 #   結束碼：0＝沒有到價、2＝至少一條到價（排程可用來決定要不要通知）。
 import argparse, csv, json, os, sys, time, urllib.request, datetime as dt
 TICKERS=['TSM','MU','NVDA','TSLA','GOOGL','AAPL','SPCX','SOXX']
-EXTRA=['2891.TW','00878.TW','0050.TW','00909.TW','TWD=X']   # 台股持股與美元匯率：只寫進 CSV，給合併儀表板用
+EXTRA=['2891.TW','00878.TW','0050.TW','00909.TW','2890.TW','TWD=X']   # 台股持股與美元匯率：只寫進 CSV，給合併儀表板用
 USE_FINNHUB=False   # 11/12 使用者：第二來源這條路先不要走（key 一直 401）；要恢復改 True
 ALERTS=[('MU','>=',820.0,'MU 碰到委託價 $820 → 賣 1 股的長效單可能成交，看成交回報')]   # 11/15 起：目標 $770 已到，使用者改掛 $820 長效賣單   # (代號, 方向, 價位, 要做的事)
 

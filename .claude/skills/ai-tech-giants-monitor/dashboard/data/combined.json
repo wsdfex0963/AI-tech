@@ -4,19 +4,19 @@
   "name": "中信金",
   "market": "台",
   "shares": 13000,
-  "value_twd": 1023100,
-  "weight_pct": 46.1,
-  "week_pct": 7.2,
+  "value_twd": 884000,
+  "weight_pct": 43.9,
+  "week_pct": -13.6,
   "light": "green"
  },
  {
   "symbol": "TSM",
   "name": "TSM",
   "market": "美",
-  "shares": 22,
-  "value_twd": 288952,
-  "weight_pct": 13.0,
-  "week_pct": 6.2,
+  "shares": 25,
+  "value_twd": 263175,
+  "weight_pct": 13.1,
+  "week_pct": -20.1,
   "light": "green"
  },
  {
@@ -24,9 +24,9 @@
   "name": "0050",
   "market": "台",
   "shares": 2600,
-  "value_twd": 266500,
-  "weight_pct": 12.0,
-  "week_pct": 10.8,
+  "value_twd": 219570,
+  "weight_pct": 10.9,
+  "week_pct": -17.6,
   "light": "green"
  },
  {
@@ -34,9 +34,19 @@
   "name": "00878",
   "market": "台",
   "shares": 6000,
-  "value_twd": 201600,
-  "weight_pct": 9.1,
-  "week_pct": 5.0,
+  "value_twd": 168180,
+  "weight_pct": 8.3,
+  "week_pct": -16.6,
+  "light": "green"
+ },
+ {
+  "symbol": "2890.TW",
+  "name": "永豐金",
+  "market": "台",
+  "shares": 3000,
+  "value_twd": 108000,
+  "weight_pct": 5.4,
+  "week_pct": -17.9,
   "light": "green"
  },
  {
@@ -44,29 +54,29 @@
   "name": "MU",
   "market": "美",
   "shares": 5,
-  "value_twd": 128188,
-  "weight_pct": 5.8,
-  "week_pct": 12.8,
-  "light": "red"
+  "value_twd": 98183,
+  "weight_pct": 4.9,
+  "week_pct": -23.6,
+  "light": "green"
  },
  {
   "symbol": "TSLA",
   "name": "TSLA",
   "market": "美",
   "shares": 6,
-  "value_twd": 77123,
-  "weight_pct": 3.5,
-  "week_pct": 8.9,
+  "value_twd": 68535,
+  "weight_pct": 3.4,
+  "week_pct": -11.4,
   "light": "green"
  },
  {
   "symbol": "NVDA",
   "name": "NVDA",
   "market": "美",
-  "shares": 14,
-  "value_twd": 75100,
-  "weight_pct": 3.4,
-  "week_pct": -12.7,
+  "shares": 15,
+  "value_twd": 62194,
+  "weight_pct": 3.1,
+  "week_pct": -22.9,
   "light": "amber"
  },
  {
@@ -74,29 +84,29 @@
   "name": "GOOGL",
   "market": "美",
   "shares": 6,
-  "value_twd": 58456,
+  "value_twd": 52575,
   "weight_pct": 2.6,
-  "week_pct": 3.9,
+  "week_pct": -10.3,
   "light": "amber"
- },
- {
-  "symbol": "00909.TW",
-  "name": "國泰數位支付",
-  "market": "台",
-  "shares": 1000,
-  "value_twd": 36300,
-  "weight_pct": 1.6,
-  "week_pct": 4.1,
-  "light": "green"
  },
  {
   "symbol": "AAPL",
   "name": "AAPL",
   "market": "美",
   "shares": 3,
-  "value_twd": 35207,
-  "weight_pct": 1.6,
-  "week_pct": 4.1,
+  "value_twd": 33944,
+  "weight_pct": 1.7,
+  "week_pct": -3.8,
+  "light": "green"
+ },
+ {
+  "symbol": "00909.TW",
+  "name": "國泰數位支付",
+  "market": "台",
+  "shares": 1000,
+  "value_twd": 30920,
+  "weight_pct": 1.5,
+  "week_pct": -14.8,
   "light": "green"
  },
  {
@@ -104,9 +114,9 @@
   "name": "SPCX",
   "market": "美",
   "shares": 5,
-  "value_twd": 22911,
+  "value_twd": 21105,
   "weight_pct": 1.0,
-  "week_pct": 3.6,
+  "week_pct": -8.1,
   "light": "green"
  },
  {
@@ -114,9 +124,9 @@
   "name": "SOXX",
   "market": "美",
   "shares": 1,
-  "value_twd": 4918,
+  "value_twd": 4076,
   "weight_pct": 0.2,
-  "week_pct": 9.4,
+  "week_pct": -17.3,
   "light": "green"
  }
 ]
